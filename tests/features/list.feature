@@ -11,9 +11,3 @@ Feature: Lists
             | priority      | 1                |
             | assignee      | 183              |
             | status        | red              |
-        When the "admin" user sends a "POST" request to "/folder/121610261/list" endpoint
-        #console.log("admin");
-        Then the response status code should be 200
-        And the response body should have the following values:
-            | name              | New List Name         |
-            | content           | New List Content      |
