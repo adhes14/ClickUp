@@ -5,7 +5,6 @@ const fs = require("fs");
  * @param {string} filePath relative path for file
  * @returns json object
  */
-
 module.exports.readJson = function (filePath) {
     if (!fs.existsSync(filePath)) {
         throw Error("Invalid path value");
