@@ -2,7 +2,7 @@ Feature: Folders
 
     Defines scenarios for Folders feature
 
-    Scenario: A user can create a folder ()
+    Scenario: Verify a new folder can be created (CA-03)
         Given the user sets the following body:
             | name | New Folder |
         When the "owner" user sends a "POST" request to "/space/55613801/folder" endpoint
