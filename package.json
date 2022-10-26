@@ -13,6 +13,7 @@
   "author": "AT-17",
   "license": "ISC",
   "dependencies": {
-    "@cucumber/cucumber": "^8.7.0"
+    "@cucumber/cucumber": "^8.7.0",
+    "axios": "^1.1.3"
   }
 }
