@@ -1,0 +1,18 @@
+{
+  "name": "clickupautomation",
+  "version": "1.0.0",
+  "description": "Click up API automation framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://clickupAT17@dev.azure.com/clickupAT17/ClickUp/_git/ClickUp"
+  },
+  "author": "AT-17",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^8.7.0"
+  }
+}
