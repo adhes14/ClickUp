@@ -1,5 +1,9 @@
-const { Given } = require('@cucumber/cucumber');
+const { Given, When } = require('@cucumber/cucumber');
 
 Given("the user sets the following body:", function(dataTable) {
-    console.log(dataTable);
+    this.requestBody = dataTable.rowsHash();
+});
+
+When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
+    
 });
