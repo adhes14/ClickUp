@@ -1,0 +1,14 @@
+{
+    "staging": {
+        "apiUrl": "https://api.clickup.com/api/v2",
+        "users": {
+            "admin": {
+                "Authorization": "",
+                "Content-Type": "application/json"
+            },
+            "guest": {
+                "token": ""
+            }
+        }
+    }
+}
