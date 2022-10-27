@@ -1,3 +1,4 @@
 {
-    "environment": "staging"
+    "environment": "staging",
+    "log-level": "debug"
 }
