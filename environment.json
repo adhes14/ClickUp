@@ -3,10 +3,8 @@
         "apiUrl": "https://api.clickup.com/api/v2",
         "users": {
             "owner": {
-                "Authorization": ""
-            },
-            "guest": {
-                "token": ""
+                "Authorization": "",
+                "Content-Type":"application/json"
             }
         }
     }
