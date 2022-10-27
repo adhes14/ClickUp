@@ -4,7 +4,7 @@
   "description": "Click up API automation framework",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js -p default"
   },
   "repository": {
     "type": "git",
