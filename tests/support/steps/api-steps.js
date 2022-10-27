@@ -34,9 +34,7 @@ Then("the response body should have the following values:", function (table) {
     const tableValues = table.raw();
     for (let index = 0; index < tableValues.length; index++) {
         const value = tableValues[index];
-        console.log("this is a test")
-        console.log(this.response.data.goal[value[0]]);
-        // expect(this.response.data[value[0]].toString()).toBe(value[1]);
+        expect(this.response.data[value[0]].toString()).toBe(value[1]);
     }
 });
 
