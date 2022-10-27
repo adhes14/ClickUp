@@ -11,4 +11,4 @@ Feature: Goals
         Then the response status code should be 200
         And the response body of the goal should have the following values:
             | name | Goal New Name |
-        # And the schema response is verified with "folderSchema"
+            
