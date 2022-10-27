@@ -12,3 +12,4 @@ Feature: Folders
             | name              | New Folder |
             | override_statuses | false      |
             | permission_level  | create     |
+        And the schema response is verified with "folderSchema"

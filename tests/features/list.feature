@@ -16,4 +16,4 @@ Feature: Lists
         And the response body should have the following values:
              | name              | New List              |
              | content           | New List Content      |
-        And the schema response is verified with "listSchema":
+        And the windows schema response is verified with "listSchema":

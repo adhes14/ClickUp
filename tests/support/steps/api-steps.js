@@ -1,9 +1,8 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('expect');
-const ConfigurationManager = require('../../../core/utils/configuration_manager');
-const RequestManager = require('../../../core/api/request_manager.js');
 const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
+const RequestManager = require('../../../core/api/RequestManager');
 const { cwd } = require('process');
 
 Given("the user sets the following complete body:", function(dataTable) {
@@ -26,8 +25,7 @@ Given("the user sets the following complete body:", function(dataTable) {
  * Sets type of user, verb type and the endpoint of the request
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
-    const header = ConfigurationManager.environment.users[user];
-    this.response = await RequestManager.send(verb, endpoint, header, this.requestBody);
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
 });
 
 /**
@@ -57,9 +55,19 @@ Then("the response body of the goal should have the following values:", function
         expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
     }
 });
+/**
+ * It validates schema of any resource
+ */
 
-Then("the schema response is verified with {string}:", function (schemaName) {
+Then("the windows schema response is verified with {string}:", function (schemaName) {
     const schemaPath = `${cwd()}\\main\\resources\\${schemaName}.json`;
     logger.info(`Verifying schema on ${schemaPath}`);
     expect(validateSchemaFromPath(this.response.data,schemaPath)).toBeTruthy();
+});
+
+Then("the schema response is verified with {string}", function (schemaName) {
+    const schemaPath = `${cwd()}/main/resources/${schemaName}.json`;
+    logger.info(`Verifying schema on ${schemaPath}`);
+    expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
+
 });
