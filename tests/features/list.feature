@@ -11,7 +11,7 @@ Feature: Lists
             | priority      | 1                |
             | assignee      | 49633402         |
             | status        | red              |
-        When the "admin" user sends a "POST" request to "/folder/121610261/list/" endpoint
+        When the "admin" user sends a "POST" request to "/folder/121610261/list" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
             | name              | New List              |
