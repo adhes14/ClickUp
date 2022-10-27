@@ -3,6 +3,13 @@ const axios = require('axios');
 const { expect } = require('expect');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
+Given("the user sets the following complete body:", function(dataTable) {
+    this.requestBody = JSON.parse(dataTable);
+});
+
+/**
+ * Sets a body object for an API request
+ */
 Given("the user sets the following body:", function(dataTable) {
     this.requestBody = dataTable.rowsHash();
 });

@@ -5,4 +5,4 @@ module.exports = {
         '--format json:reports/cucumber_report.json',
         '--publish-quiet'
     ].join(' '),
-};
+}
