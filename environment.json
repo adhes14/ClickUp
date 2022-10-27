@@ -2,8 +2,8 @@
     "staging": {
         "apiUrl": "https://api.clickup.com/api/v2",
         "users": {
-            "admin": {
-                "Authorization": "",
+            "owner": {
+                "Authorization": "pk_49633323_PZHPFMLFNWK77QSVKZRLH6GAUS2CJVJI",
                 "Content-Type": "application/json"
             },
             "guest": {
