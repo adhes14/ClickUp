@@ -37,3 +37,12 @@ Then("the response body should have the following values:", function (table) {
         expect(this.response.data[value[0]].toString()).toBe(value[1]);
     }
 });
+
+
+Then("the response body of the goal should have the following values:", function (table) {
+    const tableValues = table.raw();
+    for (let index = 0; index < tableValues.length; index++) {
+        const value = tableValues[index];
+        expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
+    }
+});
