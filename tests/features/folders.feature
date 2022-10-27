@@ -2,6 +2,7 @@ Feature: Folders
 
     Defines scenarios for Folders feature
 
+    @deleteFolder
     Scenario: Verify a new folder can be created (CA-03)
         Given the user sets the following body:
             | name | New Folder |
@@ -11,4 +12,3 @@ Feature: Folders
             | name              | New Folder |
             | override_statuses | false      |
             | permission_level  | create     |
-        # And the schema response is verified with "folderSchema"

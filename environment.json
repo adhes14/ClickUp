@@ -4,9 +4,6 @@
         "users": {
             "owner": {
                 "Authorization": ""
-            },
-            "guest": {
-                "token": ""
             }
         }
     }
