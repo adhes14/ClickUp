@@ -25,3 +25,11 @@ After({ tags: "@deleteGoal" }, async function () {
     logger.info('Deleting goal hook...');
     await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
 });
+
+/**
+ * It deletes a list which has been created before
+ */
+After ({tags: "@deleteList"}, async function () {
+    logger.info("Delete List hook...");
+    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
+});
