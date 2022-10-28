@@ -14,12 +14,12 @@ After({ tags: "@deleteFolder" }, async function () {
 });
 
 /**
- * It deletes a space which has been created before
+ * It deletes a space which has been created before, it also deletes a space which has been created into a hook
  */
 After ({tags: "@deleteSpace"}, async function () {
     logger.info("Delete Space hook...");
     await RequestManager.send('DELETE', `/space/${this.response.data.id}`, {}, {}, 'owner');
-    this.space.id ? await RequestManager.send('DELETE', `/space/${this.space.id}`, {}, {}, 'owner') : '';
+    this.spaceId ? await RequestManager.send('DELETE', `/space/${this.spaceId}`, {}, {}, 'owner') : '';
 });
 
 /**
@@ -38,16 +38,22 @@ After ({tags: "@deleteList"}, async function () {
     await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
 });
 
+/**
+ * It gets workspace team id, takes the first found
+ */
 Before({ tags: "@getTeamId" }, async function () {
     logger.info('Getting a team id...');
     const response = await RequestManager.send('GET', '/team', {}, {}, 'owner');
     this.teamId = response.data.teams[0].id;
 });
 
+/**
+ * It creates a space due to use it later on a step
+ */
 Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a speace...');
     const spacePath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}createSpace.json`;
     const spaceJson = FileReader.readJson(spacePath);
     const response = await RequestManager.send('POST', `/team/${this.teamId}/space`, {}, spaceJson, 'owner');
-    this.space = response.data;
+    this.spaceId = response.data.id;
 })
