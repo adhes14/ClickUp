@@ -17,10 +17,6 @@ Given("the user sets the following body:", function(dataTable) {
     this.requestBody = dataTable.rowsHash();
 });
 
-Given("the user sets the following complete body:", function(dataTable) {
-    this.requestBody = JSON.parse(dataTable);
-});
-
 /**
  * Sets type of user, verb type and the endpoint of the request
  */
