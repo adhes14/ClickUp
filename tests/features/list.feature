@@ -1,7 +1,7 @@
 Feature: Lists
 
     Defines scenarios for Lists feature
-    @deleteList @wip
+    @deleteList
     Scenario: Verify a new List can be created (CP-01)
         Given the user sets the following body:
             | name          | New List         |
