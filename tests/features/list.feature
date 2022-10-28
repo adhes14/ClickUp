@@ -1,7 +1,7 @@
 Feature: Lists
 
     Defines scenarios for Lists feature
-
+    @deleteList @wip
     Scenario: Verify a new List can be created (CP-01)
         Given the user sets the following body:
             | name          | New List         |
@@ -14,6 +14,6 @@ Feature: Lists
         When the "owner" user sends a "POST" request to "/folder/121610261/list" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
-             | name              | New List              |
-             | content           | New List Content      |
-        And the schema response is verified with "listSchema":
+            | name              | New List              |
+            | content           | New List Content      |
+        And the schema response is verified with "listSchema"
