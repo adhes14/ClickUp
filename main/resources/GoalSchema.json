@@ -1,0 +1,213 @@
+{
+	"definitions": {},
+	"$schema": "http://json-schema.org/draft-07/schema#", 
+	"$id": "https://example.com/object1666924248.json", 
+	"title": "Root", 
+	"type": "object",
+	"required": [
+		"goal"
+	],
+	"properties": {
+		"goal": {
+			"$id": "#root/goal", 
+			"title": "Goal", 
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"team_id",
+				"date_created",
+				"start_date",
+				"due_date",
+				"description",
+				"private",
+				"archived",
+				"creator",
+				"color",
+				"pretty_id",
+				"multiple_owners",
+				"folder_id",
+				"members",
+				"owners",
+				"key_results",
+				"percent_completed",
+				"history",
+				"pretty_url"
+			],
+			"properties": {
+				"id": {
+					"$id": "#root/goal/id", 
+					"title": "Id", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"e53a033c-900e-462d-a849-4a216b06d930"
+					],
+					"pattern": "^.*$"
+				},
+				"name": {
+					"$id": "#root/goal/name", 
+					"title": "Name", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"Goal Name"
+					],
+					"pattern": "^.*$"
+				},
+				"team_id": {
+					"$id": "#root/goal/team_id", 
+					"title": "Team_id", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"512"
+					],
+					"pattern": "^.*$"
+				},
+				"date_created": {
+					"$id": "#root/goal/date_created", 
+					"title": "Date_created", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"1568044355026"
+					],
+					"pattern": "^.*$"
+				},
+				"start_date": {
+					"$id": "#root/goal/start_date", 
+					"title": "Start_date", 
+					"type": "null",
+					"default": null
+				},
+				"due_date": {
+					"$id": "#root/goal/due_date", 
+					"title": "Due_date", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"1568036964079"
+					],
+					"pattern": "^.*$"
+				},
+				"description": {
+					"$id": "#root/goal/description", 
+					"title": "Description", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"Goal Description"
+					],
+					"pattern": "^.*$"
+				},
+				"private": {
+					"$id": "#root/goal/private", 
+					"title": "Private", 
+					"type": "boolean",
+					"examples": [
+						false
+					],
+					"default": true
+				},
+				"archived": {
+					"$id": "#root/goal/archived", 
+					"title": "Archived", 
+					"type": "boolean",
+					"examples": [
+						false
+					],
+					"default": true
+				},
+				"creator": {
+					"$id": "#root/goal/creator", 
+					"title": "Creator", 
+					"type": "integer",
+					"examples": [
+						183
+					],
+					"default": 0
+				},
+				"color": {
+					"$id": "#root/goal/color", 
+					"title": "Color", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"#32a852"
+					],
+					"pattern": "^.*$"
+				},
+				"pretty_id": {
+					"$id": "#root/goal/pretty_id", 
+					"title": "Pretty_id", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"6"
+					],
+					"pattern": "^.*$"
+				},
+				"multiple_owners": {
+					"$id": "#root/goal/multiple_owners", 
+					"title": "Multiple_owners", 
+					"type": "boolean",
+					"examples": [
+						true
+					],
+					"default": true
+				},
+				"folder_id": {
+					"$id": "#root/goal/folder_id", 
+					"title": "Folder_id", 
+					"type": "null",
+					"default": null
+				},
+				"members": {
+					"$id": "#root/goal/members", 
+					"title": "Members", 
+					"type": "array",
+					"default": []
+				},
+				"owners": {
+					"$id": "#root/goal/owners", 
+					"title": "Owners", 
+					"type": "array",
+					"default": []
+				},
+				"key_results": {
+					"$id": "#root/goal/key_results", 
+					"title": "Key_results", 
+					"type": "array",
+					"default": []
+				},
+				"percent_completed": {
+					"$id": "#root/goal/percent_completed", 
+					"title": "Percent_completed", 
+					"type": "integer",
+					"examples": [
+						0
+					],
+					"default": 0
+				},
+				"history": {
+					"$id": "#root/goal/history", 
+					"title": "History", 
+					"type": "array",
+					"default": []
+				},
+				"pretty_url": {
+					"$id": "#root/goal/pretty_url", 
+					"title": "Pretty_url", 
+					"type": "string",
+					"default": "",
+					"examples": [
+						"https://app.clickup.com/512/goals/6"
+					],
+					"pattern": "^.*$"
+				}
+			}
+		}
+
+	}
+}
