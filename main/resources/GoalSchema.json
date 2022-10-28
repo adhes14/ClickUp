@@ -34,83 +34,63 @@
 			],
 			"properties": {
 				"id": {				
-					"title": "Id", 
 					"type": "string"
 				},
-				"name": {					
-					"title": "Name", 
+				"name": {					 
 					"type": "string"
 				},
 				"team_id": {				
-					"title": "Team_id", 
 					"type": "string"
 				},
-				"date_created": {					
-					"title": "Date_created", 
+				"date_created": {					 
 					"type": "string"
 				},
 				"start_date": {					
-					"title": "Start_date", 
 					"type": "null"
 				},
 				"due_date": {					
-					"title": "Due_date", 
 					"type": "string"
 				},
 				"description": {					
-					"title": "Description", 
 					"type": "string"
 				},
 				"private": {
-					"title": "Private", 
 					"type": "boolean"
 				},
 				"archived": {					
-					"title": "Archived", 
 					"type": "boolean"
 				},
 				"creator": {				
-					"title": "Creator", 
 					"type": "integer"
 				},
 				"color": {				
-					"title": "Color", 
 					"type": "string"
 				},
 				"pretty_id": {					
-					"title": "Pretty_id", 
 					"type": "string"
 				},
 				"multiple_owners": {					
-					"title": "Multiple_owners", 
 					"type": "boolean"
 				},
 				"folder_id": {				
-					"title": "Folder_id", 
 					"type": "null"
 				},
 				"members": {
-					"title": "Members", 
 					"type": "array"
 				},
 				"owners": {
-					"title": "Owners", 
 					"type": "array"
 				},
 				"key_results": {
-					"title": "Key_results", 
 					"type": "array"
 				},
 				"percent_completed": {
-					"title": "Percent_completed", 
 					"type": "integer"
 				},
-				"history": {
-					"title": "History", 
+				"history": { 
 					"type": "array"
 				},
 				"pretty_url": {
-					"title": "Pretty_url", 
 					"type": "string"
 				}
 			}
