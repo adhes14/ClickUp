@@ -1,4 +1,4 @@
-const { After } = require('@cucumber/cucumber');
+const { Before, After } = require('@cucumber/cucumber');
 const RequestManager = require('../../../core/api/RequestManager');
 const logger = require('../../../core/utils/logger_manager');
 
@@ -32,4 +32,10 @@ After({ tags: "@deleteGoal" }, async function () {
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
     await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
+});
+
+Before({ tags: "@getTeamId" }, async function () {
+    logger.info('Getting a team id...');
+    const response = await RequestManager.send('GET', '/team', {}, {}, 'owner');
+    this.teamId = response.data.teams[0].id;
 });
