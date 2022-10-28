@@ -53,17 +53,10 @@ Then("the response body of the goal should have the following values:", function
     }
 });
 /**
- * It validates schema of any resource for Systems based on Windows
- */
 
-Then("the windows schema response is verified with {string}:", function (schemaName) {
-    const schemaPath = `${cwd()}\\main\\resources\\${schemaName}.json`;
-    logger.info(`Verifying schema on ${schemaPath}`);
-    expect(validateSchemaFromPath(this.response.data,schemaPath)).toBeTruthy();
-});
 
 /**
- * It validates schema of any resource for Systems based on Linux
+ * It validates schema of any OS (Linux, Windows ...)
  */
 Then("the schema response is verified with {string}", function (schemaName) {
     const schemaPath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}${schemaName}.json`;
