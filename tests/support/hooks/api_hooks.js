@@ -9,3 +9,8 @@ After({ tags: "@deleteFolder" }, async function () {
     logger.info('Deleting folder hook...');
     await RequestManager.send('DELETE', `/folder/${this.response.data.id}`, {}, {}, 'owner');
 });
+
+After ({tags: "@deleteSpace"}, async function () {
+    logger.info("Delete Space hook...");
+    await RequestManager.send('DELETE', `/space/${this.response.data.id}`, {}, {}, 'owner');
+});
