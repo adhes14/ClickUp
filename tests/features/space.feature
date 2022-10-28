@@ -1,8 +1,9 @@
+@api @space
 Feature: Space
 
     Defines scenarios for boards feature
 
-    @deleteSpace
+    @001 @deleteSpace @functional
     Scenario: A user can create a space (CJ-001)
         Given the user sets the following complete body:
         """
