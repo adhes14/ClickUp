@@ -3,7 +3,7 @@
         "apiUrl": "https://api.clickup.com/api/v2",
         "users": {
             "owner": {
-                "Authorization": "pk_49633402_IX17P5QRWZNBTE1E4V4A7YK2KMUEX1B6",
+                "Authorization": "",
                 "Content-Type":"application/json"
             }
         }
