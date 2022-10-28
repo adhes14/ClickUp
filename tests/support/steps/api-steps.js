@@ -4,6 +4,7 @@ const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
 const RequestManager = require('../../../core/api/RequestManager');
 const { cwd } = require('process');
+const path = require('path');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -65,7 +66,7 @@ Then("the windows schema response is verified with {string}:", function (schemaN
  * It validates schema of any resource for Systems based on Linux
  */
 Then("the schema response is verified with {string}", function (schemaName) {
-    const schemaPath = `${cwd()}/main/resources/${schemaName}.json`;
+    const schemaPath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}${schemaName}.json`;
     logger.info(`Verifying schema on ${schemaPath}`);
     expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
 
