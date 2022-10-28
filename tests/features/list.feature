@@ -11,8 +11,9 @@ Feature: Lists
             | priority      | 1                |
             | assignee      | 49633402         |
             | status        | red              |
-        When the "admin" user sends a "POST" request to "/folder/121610261/list" endpoint
+        When the "owner" user sends a "POST" request to "/folder/121610261/list" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
-            | name              | New List              |
-            | content           | New List Content      |
+             | name              | New List              |
+             | content           | New List Content      |
+        And the windows schema response is verified with "listSchema":
