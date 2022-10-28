@@ -2,7 +2,8 @@ Feature: Space
 
     Defines scenarios for boards feature
 
-    Scenario: A user can create a space (CJ-01)
+    @deleteSpace
+    Scenario: A user can create a space (CJ-001)
         Given the user sets the following complete body:
         """
         {
@@ -46,3 +47,4 @@ Feature: Space
         Then the response status code should be 200
         And the response body should have the following values:
           |name|Another Space From Cucumber|
+        And the schema response is verified with "spaceSchema"

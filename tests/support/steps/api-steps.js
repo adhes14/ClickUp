@@ -3,6 +3,8 @@ const { expect } = require('expect');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 const RequestManager = require('../../../core/api/request_manager.js');
 const logger = require('../../../core/utils/logger_manager');
+const { validateSchemaFromPath } = require('../../../core/utils/schema_validator');
+const { cwd } = require('process');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -14,10 +16,6 @@ Given("the user sets the following complete body:", function(dataTable) {
  */
 Given("the user sets the following body:", function(dataTable) {
     this.requestBody = dataTable.rowsHash();
-});
-
-Given("the user sets the following complete body:", function(dataTable) {
-    this.requestBody = JSON.parse(dataTable);
 });
 
 /**
@@ -54,4 +52,10 @@ Then("the response body of the goal should have the following values:", function
         const value = tableValues[index];
         expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
     }
+});
+
+Then("the schema response is verified with {string}", function (schemaName) {
+    const schemaPath = `${cwd()}/main/resources/${schemaName}.json`;
+    logger.info(`Verifying schema on ${schemaPath}`);
+    expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
 });
