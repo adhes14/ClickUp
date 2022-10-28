@@ -1,4 +1,5 @@
 {
     "environment": "staging",
+    "explicitTimeout": 30000,
     "log-level": "debug"
 }
