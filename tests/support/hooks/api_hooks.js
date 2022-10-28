@@ -1,4 +1,4 @@
-const { Before, After } = require('@cucumber/cucumber');
+const { After } = require('@cucumber/cucumber');
 const RequestManager = require('../../../core/api/RequestManager');
 const logger = require('../../../core/utils/logger_manager');
 

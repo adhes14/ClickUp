@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js -p default",
-    "testWip":"cucumber-js -p default --tags @wip",
-    "report": "node html_reporter.js"
+    "testWip": "cucumber-js -p default --tags @wip",
+    "report": "node html_reporter.js",
+    "check": "eslint **/*.js",
+    "fix": "eslint **/*.js --fix"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,8 @@
     "jest": "^29.2.2",
     "jsonschema": "^1.4.1",
     "log4js": "^6.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0"
   }
 }
