@@ -1,7 +1,9 @@
+@api @space
 Feature: Space
 
     Defines scenarios for boards feature
 
+    @001 @smoke
     Scenario: A user can create a space (CJ-01)
         Given the user sets the following complete body:
         """
