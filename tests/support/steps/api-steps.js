@@ -69,5 +69,4 @@ Then("the schema response is verified with {string}", function (schemaName) {
     const schemaPath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}${schemaName}.json`;
     logger.info(`Verifying schema on ${schemaPath}`);
     expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
-
 });
