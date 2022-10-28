@@ -1,7 +1,8 @@
+@api @list
 Feature: Lists
 
     Defines scenarios for Lists feature
-    @deleteList
+    @CP-01 @deleteList @functional
     Scenario: Verify a new List can be created (CP-01)
         Given the user sets the following body:
             | name          | New List         |
