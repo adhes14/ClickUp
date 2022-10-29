@@ -3,8 +3,8 @@ const { expect } = require('expect');
 const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
 const RequestManager = require('../../../core/api/RequestManager');
-const { cwd } = require('process');
-const path = require('path');
+const { replaceValue } = require('../../../core/utils/replacer');
+const { buildPath } = require('../../../core/utils/path_builder');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -22,6 +22,7 @@ Given("the user sets the following body:", function(dataTable) {
  * Sets type of user, verb type and the endpoint of the request
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
+    endpoint = replaceValue(endpoint, this);
     this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
 });
 
@@ -59,7 +60,7 @@ Then("the response body of the goal should have the following values:", function
  * It validates schema of any OS (Linux, Windows ...)
  */
 Then("the schema response is verified with {string}", function (schemaName) {
-    const schemaPath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}${schemaName}.json`;
+    const schemaPath = buildPath(`main/resources/${schemaName}.json`);
     logger.info(`Verifying schema on ${schemaPath}`);
     expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
 });
