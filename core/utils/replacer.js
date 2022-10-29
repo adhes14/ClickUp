@@ -2,9 +2,9 @@ const logger = require('./logger_manager');
 
 /**
  *
- * @param {* It's the endpoint we want to change, replacing a key by its value, it should be used on ids} valueToReplace
+ * @param {* It's the endpoint we want to change} valueToReplace
  * @param {* It's a copy of "this" variable} source
- * @returns
+ * @returns It replaces a key by its value, it should be used on ids
  */
 module.exports.replaceValue = function (valueToReplace, source) {
     const regex = RegExp(/\(.+\)/g);

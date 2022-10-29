@@ -1,9 +1,8 @@
 const { Before, After } = require('@cucumber/cucumber');
 const RequestManager = require('../../../core/api/RequestManager');
 const logger = require('../../../core/utils/logger_manager');
-const { cwd } = require('process');
-const path = require('path');
 const FileReader = require('../../../core/utils/file_reader');
+const { buildPath } = require('../../../core/utils/path_builder');
 
 /**
  * It gets workspace team id, takes the first found
@@ -19,7 +18,7 @@ Before({ tags: "@getTeamId" }, async function () {
  */
 Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a speace...');
-    const spacePath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}createSpace.json`;
+    const spacePath = buildPath("main/resources/createSpace.json");
     const spaceJson = FileReader.readJson(spacePath);
     const response = await RequestManager.send('POST', `/team/${this.team.id}/space`, {}, spaceJson, 'owner');
     this.space = response.data;
