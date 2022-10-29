@@ -3,7 +3,7 @@ Feature: Folders
 
     Defines scenarios for Folders feature
 
-    @wip @CA-03 @functional @getTeamId @createSpace @deleteFolder @deleteSpace
+    @CA-03 @functional @getTeamId @createSpace @deleteFolder @deleteSpace
     Scenario: Verify a new folder can be created (CA-03)
         Given the user sets the following body:
             | name | New Folder |
