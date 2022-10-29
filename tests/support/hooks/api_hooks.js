@@ -14,7 +14,7 @@ Before({ tags: "@getTeamId" }, async function () {
 });
 
 /**
- * It creates a space due to use it later on a step
+ * It creates a space due to use it later on a step or a hook
  */
 Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a speace...');
@@ -24,6 +24,9 @@ Before({ tags: "@createSpace" }, async function () {
     this.space = response.data;
 });
 
+/**
+ * It creates a folder due to use it later on a step or a hook
+ */
 Before({ tags: "@createFolder" }, async function () {
     logger.info('Creating a folder...');
     const response = await RequestManager.send('POST', `/space/${this.space.id}/folder`, {}, {"name": "New Test Folder"}, 'owner');

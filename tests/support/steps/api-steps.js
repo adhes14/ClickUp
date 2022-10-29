@@ -65,6 +65,9 @@ Then("the schema response is verified with {string}", function (schemaName) {
     expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
 });
 
+/**
+ * It validates the elements quantity returned
+ */
 Then("the quantity of {string} found is {int}", function (elements, quantity) {
     expect(this.response.data[elements]).toHaveLength(quantity);
     this.response.data = this.response.data[elements][0];
