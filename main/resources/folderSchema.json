@@ -31,8 +31,7 @@
             },
             "required": [
                 "id",
-                "name",
-                "access"
+                "name"
             ]
         },
         "task_count": {

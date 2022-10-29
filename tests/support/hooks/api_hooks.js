@@ -22,7 +22,13 @@ Before({ tags: "@createSpace" }, async function () {
     const spaceJson = FileReader.readJson(spacePath);
     const response = await RequestManager.send('POST', `/team/${this.team.id}/space`, {}, spaceJson, 'owner');
     this.space = response.data;
-})
+});
+
+Before({ tags: "@createFolder" }, async function () {
+    logger.info('Creating a folder...');
+    const response = await RequestManager.send('POST', `/space/${this.space.id}/folder`, {}, {"name": "New Test Folder"}, 'owner');
+    this.folder = response.data;
+});
 
 /**
  * It deletes a space which has been created before, it also deletes a space which has been created into a hook
@@ -40,7 +46,10 @@ After ({tags: "@deleteSpace"}, async function () {
  */
 After({ tags: "@deleteFolder" }, async function () {
     logger.info('Deleting folder hook...');
-    await RequestManager.send('DELETE', `/folder/${this.response.data.id}`, {}, {}, 'owner');
+    if (this.folder === undefined)
+        await RequestManager.send('DELETE', `/folder/${this.response.data.id}`, {}, {}, 'owner');
+    else
+        await RequestManager.send('DELETE', `/folder/${this.folder.id}`, {}, {}, 'owner');
 });
 
 /**

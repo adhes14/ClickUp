@@ -6,6 +6,7 @@ class CustomWorld {
     response;
     team;
     space;
+    folder;
 
     constructor({attach}){
         this.attach = attach;
