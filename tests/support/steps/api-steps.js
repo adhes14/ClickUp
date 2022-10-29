@@ -45,7 +45,6 @@ Then("the response body should have the following values:", function (table) {
     }
 });
 
-
 Then("the response body of the goal should have the following values:", function (table) {
     const tableValues = table.raw();
     for (let index = 0; index < tableValues.length; index++) {
@@ -53,8 +52,6 @@ Then("the response body of the goal should have the following values:", function
         expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
     }
 });
-/**
-
 
 /**
  * It validates schema of any OS (Linux, Windows ...)

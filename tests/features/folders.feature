@@ -3,7 +3,7 @@ Feature: Folders
 
     Defines scenarios for Folders feature
 
-    @wip @CA-01 @functional @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
+    @CA-01 @functional @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
     Scenario: Verify all folders into a space can be requested (CA-01)
         When the "owner" user sends a "GET" request to "/space/(space.id)/folder" endpoint
         Then the response status code should be 200
