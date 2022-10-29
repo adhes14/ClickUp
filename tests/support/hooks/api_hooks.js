@@ -19,7 +19,7 @@ After({ tags: "@deleteFolder" }, async function () {
 After ({tags: "@deleteSpace"}, async function () {
     logger.info("Delete Space hook...");
     await RequestManager.send('DELETE', `/space/${this.response.data.id}`, {}, {}, 'owner');
-    this.spaceId ? await RequestManager.send('DELETE', `/space/${this.spaceId}`, {}, {}, 'owner') : '';
+    this.space ? await RequestManager.send('DELETE', `/space/${this.space.id}`, {}, {}, 'owner') : '';
 });
 
 /**
@@ -44,7 +44,7 @@ After ({tags: "@deleteList"}, async function () {
 Before({ tags: "@getTeamId" }, async function () {
     logger.info('Getting a team id...');
     const response = await RequestManager.send('GET', '/team', {}, {}, 'owner');
-    this.teamId = response.data.teams[0].id;
+    this.team = response.data.teams[0];
 });
 
 /**
@@ -54,6 +54,6 @@ Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a speace...');
     const spacePath = `${cwd()}${path.sep}main${path.sep}resources${path.sep}createSpace.json`;
     const spaceJson = FileReader.readJson(spacePath);
-    const response = await RequestManager.send('POST', `/team/${this.teamId}/space`, {}, spaceJson, 'owner');
-    this.spaceId = response.data.id;
+    const response = await RequestManager.send('POST', `/team/${this.team.id}/space`, {}, spaceJson, 'owner');
+    this.space = response.data;
 })

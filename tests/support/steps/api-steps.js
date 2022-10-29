@@ -5,7 +5,7 @@ const { validateSchemaFromPath } = require('../../../core/utils/schema_validator
 const RequestManager = require('../../../core/api/RequestManager');
 const { cwd } = require('process');
 const path = require('path');
-const { modifyEndpoint } = require('../../../core/utils/endpoint_modifier');
+const { replaceValue } = require('../../../core/utils/replacer');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -23,7 +23,7 @@ Given("the user sets the following body:", function(dataTable) {
  * Sets type of user, verb type and the endpoint of the request
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
-    endpoint = modifyEndpoint(this, endpoint);
+    endpoint = replaceValue(endpoint, this);
     this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
 });
 
