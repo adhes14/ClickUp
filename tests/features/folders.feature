@@ -38,3 +38,16 @@ Feature: Folders
             | hidden            | false      |
             | permission_level  | create     |
         And the schema response is verified with "folderSchema"
+
+    @CA-04 @functional @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
+    Scenario: Verify a new folder can be updated (CA-04)
+        Given the user sets the following body:
+            | name | Updated Folder Name |
+        When the "owner" user sends a "PUT" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 200
+        And the response body should have the following values:
+            | name              | Updated Folder Name |
+            | override_statuses | false               |
+            | hidden            | false               |
+            | permission_level  | create              |
+        And the schema response is verified with "folderSchema"
