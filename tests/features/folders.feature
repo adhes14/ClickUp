@@ -56,3 +56,4 @@ Feature: Folders
     Scenario: Verify a new folder can be updated (CA-05)
         When the "owner" user sends a "DELETE" request to "/folder/(folder.id)" endpoint
         Then the response status code should be 200
+        And the response body should be empty

@@ -69,3 +69,10 @@ Then("the quantity of {string} found should be {int}", function (elements, quant
     expect(this.response.data[elements]).toHaveLength(quantity);
     this.response.data = this.response.data[elements][0];
 });
+
+/**
+ * It validates an empty body
+ */
+Then("the response body should be empty", function () {
+    expect(this.response.data).toEqual({});
+});
