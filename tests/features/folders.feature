@@ -51,3 +51,8 @@ Feature: Folders
             | hidden            | false               |
             | permission_level  | create              |
         And the schema response is verified with "folderSchema"
+
+    @CA-05 @functional @getTeamId @createSpace @createFolder @deleteSpace
+    Scenario: Verify a new folder can be updated (CA-05)
+        When the "owner" user sends a "DELETE" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 200
