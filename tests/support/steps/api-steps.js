@@ -30,7 +30,7 @@ When("the {string} user sends a {string} request to {string} endpoint", async fu
  * Verify if the response code status is the same as expected
  */
 Then("the response status code should be {int}", function (expectedCodeStatus) {
-    logger.debug(this.response.data, expectedCodeStatus);
+    logger.debug(this.response.data);
     expect(this.response.status).toBe(expectedCodeStatus);
 });
 
@@ -45,7 +45,6 @@ Then("the response body should have the following values:", function (table) {
     }
 });
 
-
 Then("the response body of the goal should have the following values:", function (table) {
     const tableValues = table.raw();
     for (let index = 0; index < tableValues.length; index++) {
@@ -53,8 +52,6 @@ Then("the response body of the goal should have the following values:", function
         expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
     }
 });
-/**
-
 
 /**
  * It validates schema of any OS (Linux, Windows ...)
@@ -63,4 +60,12 @@ Then("the schema response is verified with {string}", function (schemaName) {
     const schemaPath = buildPath(`main/resources/${schemaName}.json`);
     logger.info(`Verifying schema on ${schemaPath}`);
     expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
+});
+
+/**
+ * It validates the elements quantity returned
+ */
+Then("the quantity of {string} found is {int}", function (elements, quantity) {
+    expect(this.response.data[elements]).toHaveLength(quantity);
+    this.response.data = this.response.data[elements][0];
 });
