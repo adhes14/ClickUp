@@ -2,7 +2,7 @@
 Feature: Task
 
     Defines scenarios for task feature
-    @CK-01 @deleteTask @functional @getTeamId @createSpace @createTask @deleteFolder @deleteSpace @createFolder
+    @CK-01 @deleteTask @functional @getTeamId @createSpace @createTask @deleteFolder @deleteSpace @createFolder @wip
     Scenario: A user can create a task (CK-01)
         Given the user sets the following complete body:
         """
@@ -25,15 +25,6 @@ Feature: Task
         "name": "New Task Name",
         "hidden": false,
         "access": true
-    },
-    "task": {
-        "id": "121647208",
-        "name": "New Task Name",
-        "hidden": false,
-        "access": true
-    },
-    "space": {
-        "id": "55621491"
     }
         }
 
@@ -43,4 +34,3 @@ Feature: Task
         And the response body should have the following values:
           |name|Another Task From Cucumber|
         And the schema response is verified with "taskSchema"
-
