@@ -4,8 +4,8 @@ const configurationManager = require("../../core/utils/configuration_manager");
 class CustomWorld {
     requestBody;
     response;
-    team;
     space;
+    team;
     folder;
     list;
     user;

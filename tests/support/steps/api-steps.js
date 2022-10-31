@@ -2,8 +2,9 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('expect');
 const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
-const RequestManager = require('../../../core/api/RequestManager');
+const fileReader = require('../../../core/utils/file_reader');
 const { replaceValue } = require('../../../core/utils/replacer');
+const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 
 Given("the user sets the following complete body:", function(dataTable) {
@@ -16,6 +17,12 @@ Given("the user sets the following complete body:", function(dataTable) {
  */
 Given("the user sets the following body:", function(dataTable) {
     this.requestBody = dataTable.rowsHash();
+});
+
+Given("the user sets the following complete body with {string}", function(bodyName) {
+    logger.info("Parsing body string to JSON...");
+    this.requestBody = fileReader.readJson(`main/resources/${bodyName}.json`);
+    logger.info(this.requestBody);
 });
 
 /**
@@ -39,8 +46,11 @@ Then("the response status code should be {int}", function (expectedCodeStatus) {
  */
 Then("the response body should have the following values:", function (table) {
     const tableValues = table.raw();
+    logger.debug(tableValues);
     for (let index = 0; index < tableValues.length; index++) {
         const value = tableValues[index];
+        logger.debug(tableValues[index]);
+        logger.debug(this.response.data['name']);
         expect(this.response.data[value[0]].toString()).toBe(value[1]);
     }
 });

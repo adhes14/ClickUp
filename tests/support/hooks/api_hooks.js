@@ -1,6 +1,7 @@
-const { Before, After } = require('@cucumber/cucumber');
+const { After, Before } = require('@cucumber/cucumber');
 const RequestManager = require('../../../core/api/RequestManager');
 const logger = require('../../../core/utils/logger_manager');
+const spaceApi = require('../../../main/api/space_api');
 const FileReader = require('../../../core/utils/file_reader');
 const { buildPath } = require('../../../core/utils/path_builder');
 
@@ -26,10 +27,10 @@ Before({ tags: "@getAssigneeId" }, async function () {
  * It creates a space due to use it later on a step or a hook
  */
 Before({ tags: "@createSpace" }, async function () {
-    logger.info('Creating a speace...');
+    logger.info('Creating a space hook...');
     const spacePath = buildPath("main/resources/createSpace.json");
     const spaceJson = FileReader.readJson(spacePath);
-    const response = await RequestManager.send('POST', `/team/${this.team.id}/space`, {}, spaceJson, 'owner');
+    const response = await await spaceApi.create(this.team.id, "", spaceJson);
     this.space = response.data;
 });
 
@@ -48,9 +49,9 @@ Before({ tags: "@createFolder" }, async function () {
 After ({tags: "@deleteSpace"}, async function () {
     logger.info("Delete Space hook...");
     if (this.space === undefined)
-        await RequestManager.send('DELETE', `/space/${this.response.data.id}`, {}, {}, 'owner');
+        await spaceApi.delete(this.response.data.id);
     else
-        await RequestManager.send('DELETE', `/space/${this.space.id}`, {}, {}, 'owner');
+        await spaceApi.delete(this.space.id);
 });
 
 /**
