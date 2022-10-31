@@ -97,6 +97,12 @@ Before({ tags: "@createList" }, async function () {
  */
  Before({ tags: "@createGoal" }, async function () {
     logger.info('Creating a goal...');
-    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, {"name": "new goal from huk", "due_date": "1568036964079", "description": "Some description here.....", "multiple_owners": false, "color": "#32a852"}, 'owner');
+    const newGoalBody = { 
+        "name": "new goal from huk", 
+        "due_date": "1568036964079", 
+        "description": "Some description here.....", 
+        "multiple_owners": false, "color": "#32a852"
+    };
+    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, 'owner');
     this.goal = response.data;
 });

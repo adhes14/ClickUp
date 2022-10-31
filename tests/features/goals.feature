@@ -1,6 +1,6 @@
 Feature: Goals
 
-    @001 @functional @deleteGoal
+    @CM-01 @functional @deleteGoal
     Scenario: Verify that a new goal can be created (CM-01)
         Given the user sets the following body:
             | name | Goal New Name |
@@ -14,7 +14,7 @@ Feature: Goals
             | name | Goal New Name |
         And the schema response is verified with "GoalSchema"
 
-    @002 @functional @createGoal @deleteGoal
+    @CM-02 @functional @createGoal @deleteGoal
     Scenario: Verify that a goal can be updated (CM-02)
         Given the user sets the following body:
             | name | Updated Goal Name |
