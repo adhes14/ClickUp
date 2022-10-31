@@ -1,9 +1,8 @@
-@api @task
+@api @task 
 Feature: Task
 
     Defines scenarios for task feature
-    @001 @deleteTask @functional
-
+    @CK-01 @deleteTask @functional @getTeamId @createSpace @createTask @deleteFolder @deleteSpace @createFolder
     Scenario: A user can create a task (CK-01)
         Given the user sets the following complete body:
         """
@@ -27,7 +26,7 @@ Feature: Task
         "hidden": false,
         "access": true
     },
-    "folder": {
+    "task": {
         "id": "121647208",
         "name": "New Task Name",
         "hidden": false,
@@ -36,7 +35,7 @@ Feature: Task
     "space": {
         "id": "55621491"
     }
-}
+        }
 
         """   
         When the "owner" user sends a "POST" request to "/list/217535144/task" endpoint
@@ -44,3 +43,4 @@ Feature: Task
         And the response body should have the following values:
           |name|Another Task From Cucumber|
         And the schema response is verified with "taskSchema"
+
