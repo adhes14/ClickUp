@@ -18,3 +18,12 @@ Feature: Lists
             | name              | New List              |
             | content           | New List Content      |
         And the schema response is verified with "listSchema"
+
+    @CP-02 @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteSpace @deleteFolder @functional @wip
+    Scenario: Verify a new List can be requested (CP-02)
+        When the "owner" user sends a "GET" request to "/list/(list.id)" endpoint
+        Then the response status code should be 200
+        And the response body should have the following values:
+            | name              | New List              |
+            | content           | New List Content      |
+        And the schema response is verified with "listSchema"

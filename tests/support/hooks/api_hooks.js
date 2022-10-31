@@ -14,6 +14,15 @@ Before({ tags: "@getTeamId" }, async function () {
 });
 
 /**
+ * It gets the user id
+ */
+Before({ tags: "@getAssigneeId" }, async function () {
+    logger.info('Getting a Assignee id...');
+    const response = await RequestManager.send('GET', '/user', {}, {}, 'owner');
+    this.user = response.data.user.id;
+});
+
+/**
  * It creates a space due to use it later on a step or a hook
  */
 Before({ tags: "@createSpace" }, async function () {
@@ -69,4 +78,14 @@ After({ tags: "@deleteGoal" }, async function () {
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
     await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
+});
+
+/**
+ * It creates a list to be used later on a step or a hook
+ */
+Before({ tags: "@createList" }, async function () {
+    logger.info('Creating a list...');
+    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user}`,"status": "red"}, 'owner');
+    console.log(response.data);
+    this.list = response.data;
 });
