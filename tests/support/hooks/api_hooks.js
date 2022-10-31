@@ -19,7 +19,7 @@ Before({ tags: "@getTeamId" }, async function () {
 Before({ tags: "@getAssigneeId" }, async function () {
     logger.info('Getting a Assignee id...');
     const response = await RequestManager.send('GET', '/user', {}, {}, 'owner');
-    this.user = response.data.user.id;
+    this.user = response.data;
 });
 
 /**
@@ -85,7 +85,6 @@ After ({tags: "@deleteList"}, async function () {
  */
 Before({ tags: "@createList" }, async function () {
     logger.info('Creating a list...');
-    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user}`,"status": "red"}, 'owner');
-    console.log(response.data);
+    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, 'owner');
     this.list = response.data;
 });
