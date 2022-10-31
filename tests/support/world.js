@@ -7,6 +7,8 @@ class CustomWorld {
     team;
     space;
     folder;
+    list;
+    user;
 
     constructor({attach}){
         this.attach = attach;
