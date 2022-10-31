@@ -5,6 +5,8 @@ class CustomWorld {
     requestBody;
     response;
     space;
+    team;
+    folder;
 
     constructor({attach}){
         this.attach = attach;

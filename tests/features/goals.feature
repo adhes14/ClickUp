@@ -1,5 +1,6 @@
 Feature: Goals
 
+    @deleteGoal
     Scenario: Verify that a new goal can be created (CM-01)
         Given the user sets the following body:
             | name | Goal New Name |

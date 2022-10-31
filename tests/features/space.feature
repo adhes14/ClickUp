@@ -3,7 +3,7 @@ Feature: Space
 
     Defines scenarios for boards feature
 
-    @001 @deleteSpace @functional @wip
+    @001 @getTeamId @deleteSpace @functional @wip
     Scenario: A user can create a space (CJ-001)
         Given the user sets the following complete body:
         """
@@ -51,10 +51,10 @@ Feature: Space
           |multiple_assignees|false|
         And the schema response is verified with "spaceSchema"
 
-    @wip @002 @createSpace @deleteSpace @functional
+    @wip @002 @getTeamId @createSpace @deleteSpace @functional
     Scenario: A user can update a space (CJ-002)
       Given the user sets the following complete body with "spaceBody2"
-      When the "owner" user sends a "PUT" request to "/space/(space.data.id)" endpoint
+      When the "owner" user sends a "PUT" request to "/space/(space.id)" endpoint
       Then the response status code should be 200
       And the response body should have the following values:
           | name |Updated Space Name|

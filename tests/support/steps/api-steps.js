@@ -2,10 +2,10 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('expect');
 const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
-const { cwd } = require('process');
 const fileReader = require('../../../core/utils/file_reader');
 const { replaceValue } = require('../../../core/utils/replacer');
-const spaceApi = require('../../../main/api/space_api');
+const RequestManager = require('../../../core/api/RequestManager');
+const { buildPath } = require('../../../core/utils/path_builder');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -29,16 +29,15 @@ Given("the user sets the following complete body with {string}", function(bodyNa
  * Sets type of user, verb type and the endpoint of the request
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
-    logger.debug(this.space);
     endpoint = replaceValue(endpoint, this);
-    this.response =  await spaceApi.create(verb, endpoint, this.requestBody, user);
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
 });
 
 /**
  * Verify if the response code status is the same as expected
  */
 Then("the response status code should be {int}", function (expectedCodeStatus) {
-    logger.debug(this.response.data, expectedCodeStatus);
+    logger.debug(this.response.data);
     expect(this.response.status).toBe(expectedCodeStatus);
 });
 
@@ -56,7 +55,6 @@ Then("the response body should have the following values:", function (table) {
     }
 });
 
-
 Then("the response body of the goal should have the following values:", function (table) {
     const tableValues = table.raw();
     for (let index = 0; index < tableValues.length; index++) {
@@ -64,22 +62,30 @@ Then("the response body of the goal should have the following values:", function
         expect(this.response.data.goal[value[0]].toString()).toBe(value[1]);
     }
 });
-/**
- * It validates schema of any resource for Systems based on Windows
- */
 
-Then("the windows schema response is verified with {string}:", function (schemaName) {
-    const schemaPath = `${cwd()}\\main\\resources\\${schemaName}.json`;
+/**
+ * It validates schema of any OS (Linux, Windows ...)
+ */
+Then("the schema response is verified with {string}", function (schemaName) {
+    const schemaPath = buildPath(`main/resources/${schemaName}.json`);
     logger.info(`Verifying schema on ${schemaPath}`);
-    expect(validateSchemaFromPath(this.response.data,schemaPath)).toBeTruthy();
+    expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
 });
 
 /**
- * It validates schema of any resource for Systems based on Linux
+ * It validates the elements quantity returned
  */
-Then("the schema response is verified with {string}", function (schemaName) {
-    const schemaPath = `${cwd()}/main/resources/${schemaName}.json`;
-    logger.info(`Verifying schema on ${schemaPath}`);
-    expect(validateSchemaFromPath(this.response.data, schemaPath)).toBeTruthy();
+Then("the quantity of {string} found should be {int}", function (elements, quantity) {
+    expect(this.response.data[elements]).toHaveLength(quantity);
+});
 
+Then("Among all the {string} found, the user saves one on position {int}", function (elements, position) {
+    this.response.data = this.response.data[elements][position];
+});
+
+/**
+ * It validates an empty body
+ */
+Then("the response body should be empty", function () {
+    expect(this.response.data).toEqual({});
 });
