@@ -8,6 +8,7 @@ Feature: Folders
         When the "owner" user sends a "GET" request to "/space/(space.id)/folder" endpoint
         Then the response status code should be 200
         And the quantity of "folders" found should be 1
+        And Among all the "folders" found, the user saves one on position 0
         And the response body should have the following values:
             | name              | New Test Folder |
             | override_statuses | false           |
