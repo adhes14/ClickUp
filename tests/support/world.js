@@ -4,6 +4,11 @@ const configurationManager = require("../../core/utils/configuration_manager");
 class CustomWorld {
     requestBody;
     response;
+    team;
+    space;
+    folder;
+    list;
+    user;
 
     constructor({attach}){
         this.attach = attach;
