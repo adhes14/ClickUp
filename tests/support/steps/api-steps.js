@@ -65,7 +65,17 @@ Then("the schema response is verified with {string}", function (schemaName) {
 /**
  * It validates the elements quantity returned
  */
-Then("the quantity of {string} found is {int}", function (elements, quantity) {
+Then("the quantity of {string} found should be {int}", function (elements, quantity) {
     expect(this.response.data[elements]).toHaveLength(quantity);
-    this.response.data = this.response.data[elements][0];
+});
+
+Then("Among all the {string} found, the user saves one on position {int}", function (elements, position) {
+    this.response.data = this.response.data[elements][position];
+});
+
+/**
+ * It validates an empty body
+ */
+Then("the response body should be empty", function () {
+    expect(this.response.data).toEqual({});
 });

@@ -7,7 +7,8 @@ Feature: Folders
     Scenario: Verify all folders into a space can be requested (CA-01)
         When the "owner" user sends a "GET" request to "/space/(space.id)/folder" endpoint
         Then the response status code should be 200
-        And the quantity of "folders" found is 1
+        And the quantity of "folders" found should be 1
+        And Among all the "folders" found, the user saves one on position 0
         And the response body should have the following values:
             | name              | New Test Folder |
             | override_statuses | false           |
@@ -38,3 +39,22 @@ Feature: Folders
             | hidden            | false      |
             | permission_level  | create     |
         And the schema response is verified with "folderSchema"
+
+    @CA-04 @functional @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
+    Scenario: Verify a new folder can be updated (CA-04)
+        Given the user sets the following body:
+            | name | Updated Folder Name |
+        When the "owner" user sends a "PUT" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 200
+        And the response body should have the following values:
+            | name              | Updated Folder Name |
+            | override_statuses | false               |
+            | hidden            | false               |
+            | permission_level  | create              |
+        And the schema response is verified with "folderSchema"
+
+    @CA-05 @functional @getTeamId @createSpace @createFolder @deleteSpace
+    Scenario: Verify a new folder can be updated (CA-05)
+        When the "owner" user sends a "DELETE" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 200
+        And the response body should be empty
