@@ -1,11 +1,9 @@
 const RequestManager = require('../../core/api/RequestManager');
 
 class SpaceApi {
-    async create(verb, teamId, endpoint, body, user){
-        verb ? verb  : verb = 'POST';
+    async create(teamId, endpoint, body){
         endpoint ? endpoint  : endpoint = `/team/${teamId}/space`;
-        user ? user  : user = 'owner';
-        const response = await RequestManager.send(verb, endpoint, {}, body, user);
+        const response = await RequestManager.send('POST', endpoint, {}, body, 'owner');
         return response;
     }
     async delete(id){

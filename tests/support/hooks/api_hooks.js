@@ -21,7 +21,7 @@ Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a space hook...');
     const spacePath = buildPath("main/resources/createSpace.json");
     const spaceJson = FileReader.readJson(spacePath);
-    const response = await await spaceApi.create("", this.team.id, "", spaceJson, "");
+    const response = await await spaceApi.create(this.team.id, "", spaceJson);
     this.space = response.data;
 });
 
