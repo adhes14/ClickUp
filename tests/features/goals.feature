@@ -1,6 +1,6 @@
 Feature: Goals
 
-    @deleteGoal
+    @001 @functional @deleteGoal
     Scenario: Verify that a new goal can be created (CM-01)
         Given the user sets the following body:
             | name | Goal New Name |
@@ -13,3 +13,20 @@ Feature: Goals
         And the response body of the goal should have the following values:
             | name | Goal New Name |
         And the schema response is verified with "GoalSchema"
+
+    @002 @functional @createGoal @deleteGoal
+    Scenario: Verify that a goal can be updated (CM-02)
+        Given the user sets the following body:
+            | name | Updated Goal Name |
+            | due_date | 1568044355026 |
+            | description | Updated Goal Description |
+            | multiple_owners | false |
+        When the "owner" user sends a "PUT" request to "/goal/(goal.goal.id)" endpoint
+        Then the response status code should be 200
+        And the response body of the goal should have the following values:
+            | name | Updated Goal Name |
+            | due_date | 1568044355026 |
+            | description | Updated Goal Description |
+            | multiple_owners | false |
+        And the schema response is verified with "GoalSchema"
+    
