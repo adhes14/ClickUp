@@ -3,7 +3,7 @@ Feature: Space
 
     Defines scenarios for boards feature
 
-    @CJ-001 @getTeamId @deleteSpace @functional @wip
+    @CJ-001 @getTeamId @deleteSpace @functional
     Scenario: A user can create a space (CJ-001)
       Given the user sets the following file body:
         | fileName | createSpace |
@@ -14,7 +14,7 @@ Feature: Space
         | multiple_assignees | false                       |
       And the schema response is verified with "spaceSchema"
 
-    @CJ-002 @getTeamId @createSpace @deleteSpace @functional @wip
+    @CJ-002 @getTeamId @createSpace @deleteSpace @functional
     Scenario: A user can update a space (CJ-002)
       Given the user sets the following file body:
         | fileName | updateSpace |
