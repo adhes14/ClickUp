@@ -93,7 +93,7 @@ Feature: Space
           | err   | Space with this name already exists |
           | ECODE | PROJECT_023                         |
 
-    @CJ-011 @smoke @negative @getTeamId @createSpace @deleteSpaceB @wip
+    @CJ-011 @smoke @negative @getTeamId @createSpace @deleteSpaceB
     Scenario: A user cannot get a deleted space (CJ-011)
       When the "owner" user sends a "GET" request to "/space/(space.id)" endpoint
       Then the response status code should be 404
