@@ -1,6 +1,6 @@
 {
-    "name": "New Space from hook",
-    "multiple_assignees": true,
+    "name": "Another Space From Cucumber",
+    "multiple_assignees": false,
     "features": {
         "due_dates": {
             "enabled": true,
