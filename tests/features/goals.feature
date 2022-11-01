@@ -1,3 +1,4 @@
+@api @goal
 Feature: Goals
 
     @CM-01 @functional @deleteGoal
@@ -30,3 +31,8 @@ Feature: Goals
             | multiple_owners | false |
         And the schema response is verified with "GoalSchema"
     
+    @CM-03 @functional @createGoal @wip
+    Scenario: Verify that a goal can be deleted (CM-03)
+        When the "owner" user sends a "DELETE" request to "/goal/(goal.goal.id)" endpoint
+        Then the response status code should be 200
+        And the response body should be empty
