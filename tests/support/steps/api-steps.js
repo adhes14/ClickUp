@@ -12,17 +12,19 @@ Given("the user sets the following complete body:", function(dataTable) {
     this.requestBody = JSON.parse(dataTable);
 });
 
+Given("the user sets the following file body:", function(dataTable) {
+    logger.info("Parsing dataTable string to JSON...");
+    const tableValue = dataTable.rowsHash();
+    logger.info(tableValue['fileName']);
+    const fileName = tableValue['fileName'].toString();
+    this.requestBody = fileReader.readJson(`main/resources/${fileName}.json`);;
+});
+
 /**
  * Sets a body object for an API request
  */
 Given("the user sets the following body:", function(dataTable) {
     this.requestBody = dataTable.rowsHash();
-});
-
-Given("the user sets the following complete body with {string}", function(bodyName) {
-    logger.info("Parsing body string to JSON...");
-    this.requestBody = fileReader.readJson(`main/resources/${bodyName}.json`);
-    logger.info(this.requestBody);
 });
 
 /**
