@@ -4,6 +4,7 @@ const logger = require('../../../core/utils/logger_manager');
 const spaceApi = require('../../../main/api/space_api');
 const FileReader = require('../../../core/utils/file_reader');
 const { buildPath } = require('../../../core/utils/path_builder');
+const FolderApi = require('../../../main/api/folder_api');
 
 /**
  * It gets workspace team id, takes the first found
@@ -20,7 +21,7 @@ Before({ tags: "@getTeamId" }, async function () {
 Before({ tags: "@getAssigneeId" }, async function () {
     logger.info('Getting a Assignee id...');
     const response = await RequestManager.send('GET', '/user', {}, {}, 'owner');
-    this.user = response.data;
+    this.user = response.data.user;
 });
 
 /**
@@ -38,8 +39,8 @@ Before({ tags: "@createSpace" }, async function () {
  * It creates a folder due to use it later on a step or a hook
  */
 Before({ tags: "@createFolder" }, async function () {
-    logger.info('Creating a folder...');
-    const response = await RequestManager.send('POST', `/space/${this.space.id}/folder`, {}, {"name": "New Test Folder"}, 'owner');
+    logger.info('Creating a folder hook...');
+    const response = await FolderApi.create(this.space.id, {"name": "New Test Folder"})
     this.folder = response.data;
 });
 
@@ -60,15 +61,15 @@ After ({tags: "@deleteSpace"}, async function () {
 After({ tags: "@deleteFolder" }, async function () {
     logger.info('Deleting folder hook...');
     if (this.folder === undefined)
-        await RequestManager.send('DELETE', `/folder/${this.response.data.id}`, {}, {}, 'owner');
+        await FolderApi.delete(this.response.data.id);
     else
-        await RequestManager.send('DELETE', `/folder/${this.folder.id}`, {}, {}, 'owner');
+        await FolderApi.delete(this.folder.id);
 });
 
 /**
  * It deletes a goal which has been created before
  */
- After({ tags: "@deleteGoal" }, async function () {
+After({ tags: "@deleteGoal" }, async function () {
     logger.info('Deleting goal hook...');
     if (this.goal === undefined)
         await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
@@ -88,7 +89,7 @@ After ({tags: "@deleteList"}, async function () {
  * It creates a list to be used later on a step or a hook
  */
 Before({ tags: "@createList" }, async function () {
-    logger.info('Creating a list...');
+    logger.info('Creating a list hook...');
     const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, 'owner');
     this.list = response.data;
 });
@@ -96,9 +97,9 @@ Before({ tags: "@createList" }, async function () {
 /**
  * It creates a goal to be used later on a step or a hook
  */
- Before({ tags: "@createGoal" }, async function () {
+Before({ tags: "@createGoal" }, async function () {
     logger.info('Creating a goal...');
-    const newGoalBody = { 
+    const newGoalBody = {
         "name": "new goal from huk",
         "due_date": "1568036964079",
         "description": "Some description here.....",
