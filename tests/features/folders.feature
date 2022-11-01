@@ -73,7 +73,7 @@ Feature: Folders
             | CA-07 | with an invalid     | abcde       | 500        | invalid input syntax for integer: "abcde" | OAuth_025 |
             | CA-08 | with a non-existent | 999999999   | 401        | Team not authorized                       | OAUTH_027 |
 
-    @CA-09 @CA-10 @negative @smoke @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
+    @CA-09 @CA-10 @negative @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
     Scenario Outline: Verify a user cannot get a folder <tittle> token (<id>)
         When the "<user>" user sends a "GET" request to "/folder/(folder.id)" endpoint
         Then the response status code should be <statusCode>
