@@ -36,6 +36,17 @@ Feature: Space
       When the "owner" user sends a "GET" request to "/space/(space.id)" endpoint
       Then the response status code should be 200
       And the response body should have the following values:
-        | name               | New Space from hook |
-        | multiple_assignees | true                |
+        | name               | Another Space From Cucumber |
+        | multiple_assignees | false                       |
+      And the schema response is verified with "spaceSchema"
+
+        @CJ-005 @functional @getTeamId @createSpace @deleteSpace @wip
+    Scenario: Verify all spaces into a team can be requested (CJ-005)
+      When the "owner" user sends a "GET" request to "/team/(team.id)/space" endpoint
+      Then the response status code should be 200
+      And the quantity of "spaces" found should be 1
+      And Among all the "spaces" found, the user saves one on position 0
+      And the response body should have the following values:
+          | name               | Another Space From Cucumber |
+          | multiple_assignees | false                       |
       And the schema response is verified with "spaceSchema"
