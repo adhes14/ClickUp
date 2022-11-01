@@ -1,0 +1,21 @@
+{
+    "name": "Update Task",
+    "description": null,
+    "status": "to do",
+    "assignees": [],
+    "tags": [],
+    "parent": null,
+    "priority": null,
+    "due_date": null,
+    "start_date": null,
+    "time_estimate": null,
+    "custom_fields": [],
+    "linked_tasks": [],
+    "team_id": "31593470",
+    "project": {
+        "id": "121647208",
+        "name": "New Task Name",
+        "hidden": false,
+        "access": true
+    }
+}
