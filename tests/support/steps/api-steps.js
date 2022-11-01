@@ -51,8 +51,6 @@ Then("the response body should have the following values:", function (table) {
     logger.debug(tableValues);
     for (let index = 0; index < tableValues.length; index++) {
         const value = tableValues[index];
-        logger.debug(tableValues[index]);
-        logger.debug(this.response.data['name']);
         expect(this.response.data[value[0]].toString()).toBe(value[1]);
     }
 });
@@ -81,6 +79,9 @@ Then("the quantity of {string} found should be {int}", function (elements, quant
     expect(this.response.data[elements]).toHaveLength(quantity);
 });
 
+/**
+ * It saves one of the elements of an array, which was returned as a body response, to be able to validate body and schema
+ */
 Then("Among all the {string} found, the user saves one on position {int}", function (elements, position) {
     this.response.data = this.response.data[elements][position];
 });
