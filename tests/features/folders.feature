@@ -59,18 +59,16 @@ Feature: Folders
         Then the response status code should be 200
         And the response body should be empty
 
-    @CA-06 @negative
-    Scenario: Verify a user cannot get a folder without an id (CA-06)
-        When the "owner" user sends a "GET" request to "/folder/" endpoint
-        Then the response status code should be 404
+    @CA-06 @CA-07 @CA-08 @negative
+    Scenario Outline: Verify a user cannot get a folder <tittle> id (<id>)
+        When the "owner" user sends a "GET" request to "/folder/<invalidData>" endpoint
+        Then the response status code should be <statusCode>
         And the response body should have the following values:
-            | err   | Route not found |
-            | ECODE | APP_001         |
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
 
-    @CA-07 @negative
-    Scenario: Verify a user cannot get a folder with an invalid id (CA-07)
-        When the "owner" user sends a "GET" request to "/folder/abcde" endpoint
-        Then the response status code should be 500
-        And the response body should have the following values:
-            | err   | invalid input syntax for integer: "abcde" |
-            | ECODE | OAuth_025                                 |
+        Examples:
+            | id    | tittle              | invalidData | statusCode | errMessage                                | errCode   |
+            | CA-06 | without an          |             | 404        | Route not found                           | APP_001   |
+            | CA-07 | with an invalid     | abcde       | 500        | invalid input syntax for integer: "abcde" | OAuth_025 |
+            | CA-08 | with a non-existent | 999999999   | 401        | Team not authorized                       | OAUTH_027 |
