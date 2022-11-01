@@ -4,6 +4,12 @@
         "users": {
             "owner": {
                 "Authorization": ""
+            },
+            "withoutTokenUser": {
+                "Authorization": ""
+            },
+            "invalidTokenUser": {
+                "Authorization": "pk_123456789"
             }
         }
     }
