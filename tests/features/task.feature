@@ -2,7 +2,7 @@
 Feature: Task
 
     Defines scenarios for task feature
-    @CK-01 @deleteTask @functional @getTeamId @createSpace @createTask @deleteFolder @deleteSpace @createFolder @wip
+    @CK-01 @deleteTask @functional @getTeamId @createSpace @createTask @deleteFolder @deleteSpace @createFolder
     Scenario: A user can create a task (CK-01)
         Given the user sets the following complete body:
         """
