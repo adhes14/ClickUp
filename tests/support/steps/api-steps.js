@@ -48,7 +48,6 @@ Then("the response status code should be {int}", function (expectedCodeStatus) {
  */
 Then("the response body should have the following values:", function (table) {
     const tableValues = table.raw();
-    logger.debug(tableValues);
     for (let index = 0; index < tableValues.length; index++) {
         const value = tableValues[index];
         expect(this.response.data[value[0]].toString()).toBe(value[1]);
