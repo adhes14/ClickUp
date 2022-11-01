@@ -60,3 +60,18 @@ Feature: Space
           | name |Updated Space Name|
           |multiple_assignees|true|
       And the schema response is verified with "spaceSchema"
+
+    @CJ-003 @functional @getTeamId @createSpace @wip
+    Scenario: A user can delete a space (CJ-003)
+      When the "owner" user sends a "DELETE" request to "/space/(space.id)" endpoint
+      Then the response status code should be 200
+      And the response body should be empty
+
+    @CJ-004 @functional @getTeamId @createSpace @deleteSpace @wip
+    Scenario: A user can get a created space (CJ-003)
+      When the "owner" user sends a "GET" request to "/space/(space.id)" endpoint
+      Then the response status code should be 200
+      And the response body should have the following values:
+        | name               | New Space from hook |
+        | multiple_assignees | true                |
+      And the schema response is verified with "spaceSchema"
