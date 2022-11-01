@@ -17,7 +17,7 @@ Given("the user sets the following file body:", function(dataTable) {
     const tableValue = dataTable.rowsHash();
     logger.info(tableValue['fileName']);
     const fileName = tableValue['fileName'].toString();
-    this.requestBody = fileReader.readJson(`main/resources/${fileName}.json`);;
+    this.requestBody = fileReader.readJson(`main/resources/${fileName}.json`);
 });
 
 /**

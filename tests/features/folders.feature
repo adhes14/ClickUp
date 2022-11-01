@@ -66,3 +66,11 @@ Feature: Folders
         And the response body should have the following values:
             | err   | Route not found |
             | ECODE | APP_001         |
+
+    @CA-07 @negative
+    Scenario: Verify a user cannot get a folder with an invalid id (CA-07)
+        When the "owner" user sends a "GET" request to "/folder/abcde" endpoint
+        Then the response status code should be 500
+        And the response body should have the following values:
+            | err   | invalid input syntax for integer: "abcde" |
+            | ECODE | OAuth_025                                 |
