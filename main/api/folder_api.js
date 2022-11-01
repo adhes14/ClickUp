@@ -1,4 +1,5 @@
 const RequestManager = require('../../core/api/RequestManager');
+const { buildHeader } = require('../../core/utils/header_builder');
 
 /**
  * It manages API requests for folder feature
@@ -11,7 +12,7 @@ class FolderApi {
      * @returns a new folder
      */
     async create(spaceId, body){
-        const response = await RequestManager.send('POST', `/space/${spaceId}/folder`, {}, body, 'owner');
+        const response = await RequestManager.send('POST', `/space/${spaceId}/folder`, {}, body, buildHeader('owner'));
         return response;
     }
 
@@ -20,7 +21,7 @@ class FolderApi {
      * @param {number} id, folder id to be deleted
      */
     async delete(id){
-        await RequestManager.send('DELETE', `/folder/${id}`, {}, {}, 'owner');
+        await RequestManager.send('DELETE', `/folder/${id}`, {}, {}, buildHeader('owner'));
     }
 }
 

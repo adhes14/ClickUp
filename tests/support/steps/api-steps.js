@@ -6,6 +6,7 @@ const fileReader = require('../../../core/utils/file_reader');
 const { replaceValue } = require('../../../core/utils/replacer');
 const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
+const { buildHeader } = require('../../../core/utils/header_builder');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -32,7 +33,7 @@ Given("the user sets the following body:", function(dataTable) {
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
     endpoint = replaceValue(endpoint, this);
-    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, buildHeader(user));
 });
 
 /**

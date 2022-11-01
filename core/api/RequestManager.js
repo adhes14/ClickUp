@@ -3,10 +3,7 @@ const ConfigurationManager = require('../utils/configuration_manager');
 const logger = require('../utils/logger_manager');
 
 class RequestManager {
-    async send(verb, endpoint, queryParams, body, user) {
-        let headers = ConfigurationManager.environment.users[user];
-        headers = user === 'withoutTokenUser' ? {Authorization: ''} : headers;
-        headers = user === 'invalidTokenUser' ? {Authorization: 'pk_123456789'} : headers;
+    async send(verb, endpoint, queryParams, body, headers) {
         const options = {
             url: `${ConfigurationManager.environment.apiUrl}${endpoint}`,
             method: verb,

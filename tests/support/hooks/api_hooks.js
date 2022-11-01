@@ -5,13 +5,14 @@ const spaceApi = require('../../../main/api/space_api');
 const FileReader = require('../../../core/utils/file_reader');
 const { buildPath } = require('../../../core/utils/path_builder');
 const FolderApi = require('../../../main/api/folder_api');
+const { buildHeader } = require('../../../core/utils/header_builder');
 
 /**
  * It gets workspace team id, takes the first found
  */
 Before({ tags: "@getTeamId" }, async function () {
     logger.info('Getting a team id...');
-    const response = await RequestManager.send('GET', '/team', {}, {}, 'owner');
+    const response = await RequestManager.send('GET', '/team', {}, {}, buildHeader('owner'));
     this.team = response.data.teams[0];
 });
 
@@ -20,7 +21,7 @@ Before({ tags: "@getTeamId" }, async function () {
  */
 Before({ tags: "@getAssigneeId" }, async function () {
     logger.info('Getting a Assignee id...');
-    const response = await RequestManager.send('GET', '/user', {}, {}, 'owner');
+    const response = await RequestManager.send('GET', '/user', {}, {}, buildHeader('owner'));
     this.user = response.data.user;
 });
 
@@ -80,9 +81,9 @@ After({ tags: "@deleteFolder" }, async function () {
 After({ tags: "@deleteGoal" }, async function () {
     logger.info('Deleting goal hook...');
     if (this.goal === undefined)
-        await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
+        await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, buildHeader('owner'));
     else
-        await RequestManager.send('DELETE', `/goal/${this.goal.goal.id}`, {}, {}, 'owner');
+        await RequestManager.send('DELETE', `/goal/${this.goal.goal.id}`, {}, {}, buildHeader('owner'));
 });
 
 /**
@@ -90,7 +91,7 @@ After({ tags: "@deleteGoal" }, async function () {
  */
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
-    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
+    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, buildHeader('owner'));
 });
 
 /**
@@ -98,7 +99,7 @@ After ({tags: "@deleteList"}, async function () {
  */
 Before({ tags: "@createList" }, async function () {
     logger.info('Creating a list hook...');
-    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, 'owner');
+    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, buildHeader('owner'));
     this.list = response.data;
 });
 
@@ -113,6 +114,6 @@ Before({ tags: "@createGoal" }, async function () {
         "description": "Some description here.....",
         "multiple_owners": false, "color": "#32a852"
     };
-    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, 'owner');
+    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, buildHeader('owner'));
     this.goal = response.data;
 });
