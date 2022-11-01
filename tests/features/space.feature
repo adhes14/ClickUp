@@ -25,13 +25,13 @@ Feature: Space
           | multiple_assignees | true               |
       And the schema response is verified with "spaceSchema"
 
-    @CJ-003 @functional @getTeamId @createSpace @wip
+    @CJ-003 @functional @getTeamId @createSpace
     Scenario: A user can delete a space (CJ-003)
       When the "owner" user sends a "DELETE" request to "/space/(space.id)" endpoint
       Then the response status code should be 200
       And the response body should be empty
 
-    @CJ-004 @functional @getTeamId @createSpace @deleteSpace @wip
+    @CJ-004 @functional @getTeamId @createSpace @deleteSpace
     Scenario: A user can get a created space (CJ-003)
       When the "owner" user sends a "GET" request to "/space/(space.id)" endpoint
       Then the response status code should be 200
@@ -40,7 +40,7 @@ Feature: Space
         | multiple_assignees | false                       |
       And the schema response is verified with "spaceSchema"
 
-        @CJ-005 @functional @getTeamId @createSpace @deleteSpace @wip
+        @CJ-005 @functional @getTeamId @createSpace @deleteSpace
     Scenario: Verify all spaces into a team can be requested (CJ-005)
       When the "owner" user sends a "GET" request to "/team/(team.id)/space" endpoint
       Then the response status code should be 200
