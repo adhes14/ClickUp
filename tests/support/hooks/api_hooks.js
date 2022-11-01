@@ -55,6 +55,14 @@ After ({tags: "@deleteSpace"}, async function () {
         await spaceApi.delete(this.space.id);
 });
 
+Before ({tags: "@deleteSpaceB"}, async function () {
+    logger.info("Delete Space hook...");
+    if (this.space === undefined)
+        await spaceApi.delete(this.response.data.id);
+    else
+        await spaceApi.delete(this.space.id);
+});
+
 /**
  * It deletes a folder which has been created before
  */
