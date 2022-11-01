@@ -68,9 +68,12 @@ After({ tags: "@deleteFolder" }, async function () {
 /**
  * It deletes a goal which has been created before
  */
-After({ tags: "@deleteGoal" }, async function () {
+ After({ tags: "@deleteGoal" }, async function () {
     logger.info('Deleting goal hook...');
-    await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
+    if (this.goal === undefined)
+        await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
+    else
+        await RequestManager.send('DELETE', `/goal/${this.goal.goal.id}`, {}, {}, 'owner');
 });
 
 /**
@@ -88,4 +91,19 @@ Before({ tags: "@createList" }, async function () {
     logger.info('Creating a list...');
     const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, 'owner');
     this.list = response.data;
+});
+
+/**
+ * It creates a goal to be used later on a step or a hook
+ */
+ Before({ tags: "@createGoal" }, async function () {
+    logger.info('Creating a goal...');
+    const newGoalBody = { 
+        "name": "new goal from huk", 
+        "due_date": "1568036964079", 
+        "description": "Some description here.....", 
+        "multiple_owners": false, "color": "#32a852"
+    };
+    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, 'owner');
+    this.goal = response.data;
 });
