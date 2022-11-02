@@ -112,6 +112,20 @@ Feature: Folders
 
         Examples:
             | id    | tittle              | invalidData | statusCode | errMessage                              | errCode   |
-            | CA-11 | without a           |             | 404        | Route not found                         | APP_001   |
-            | CA-12 | with an invalid     | abc         | 500        | invalid input syntax for integer: "abc" | OAuth_025 |
-            | CA-13 | with a non-existent | 9999999999  | 401        | Team not authorized                     | OAUTH_027 |
+            | CA-14 | without a           |             | 404        | Route not found                         | APP_001   |
+            | CA-15 | with an invalid     | abc         | 500        | invalid input syntax for integer: "abc" | OAuth_025 |
+            | CA-16 | with a non-existent | 9999999999  | 401        | Team not authorized                     | OAUTH_027 |
+
+    @CA-17 @CA-18 @CA-19 @negative
+    Scenario: Verify a user cannot update a folder <tittle> space id (<id>)
+        When the "owner" user sends a "PUT" request to "/folder/<invalidData>" endpoint
+        Then the response status code should be <statusCode>
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
+
+        Examples:
+            | id    | tittle              | invalidData | statusCode | errMessage                              | errCode   |
+            | CA-17 | without a           |             | 404        | Route not found                         | APP_001   |
+            | CA-18 | with an invalid     | abc         | 500        | invalid input syntax for integer: "abc" | OAuth_025 |
+            | CA-19 | with a non-existent | 9999999999  | 401        | Team not authorized                     | OAUTH_027 |
