@@ -1,14 +1,16 @@
 const RequestManager = require('../../core/api/RequestManager');
-const { buildHeader } = require('../../core/utils/header_builder');
+const ConfigurationManager = require('../../core/utils/configuration_manager');
 
 class SpaceApi {
     async create(teamId, endpoint, body){
         endpoint ? endpoint  : endpoint = `/team/${teamId}/space`;
-        const response = await RequestManager.send('POST', endpoint, {}, body, buildHeader('owner'));
+        const header = ConfigurationManager.environment.users['owner'];
+        const response = await RequestManager.send('POST', endpoint, {}, body, header);
         return response;
     }
     async delete(id){
-        await RequestManager.send('DELETE', `/space/${id}`, {}, {}, buildHeader('owner'));
+        const header = ConfigurationManager.environment.users['owner'];
+        await RequestManager.send('DELETE', `/space/${id}`, {}, {}, header);
     }
 }
 
