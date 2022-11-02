@@ -37,6 +37,12 @@ When("the {string} user sends a {string} request to {string} endpoint", async fu
     this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
 });
 
+When("An invalid user sends a {string} request to {string} endpoint with the following header:", async function(verb, endpoint, dataTable) {
+    endpoint = replaceValue(endpoint, this);
+    const header = dataTable.rowsHash();
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
+});
+
 /**
  * Verify if the response code status is the same as expected
  */

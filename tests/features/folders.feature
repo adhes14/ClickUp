@@ -73,15 +73,17 @@ Feature: Folders
             | CA-07 | with an invalid     | abcde       | 500        | invalid input syntax for integer: "abcde" | OAuth_025 |
             | CA-08 | with a non-existent | 999999999   | 401        | Team not authorized                       | OAUTH_027 |
 
-    @CA-09 @CA-10 @negative @getTeamId @createSpace @createFolder @deleteFolder @deleteSpace
+    @CA-09 @CA-10 @negative
     Scenario Outline: Verify a user cannot get a folder <tittle> token (<id>)
         When the "<user>" user sends a "GET" request to "/folder/(folder.id)" endpoint
+        When An invalid user sends a "GET" request to "/folder/(folder.id)" endpoint with the following header:
+            | Authorization | <header> |
         Then the response status code should be <statusCode>
         And the response body should have the following values:
             | err   | <errMessage> |
             | ECODE | <errCode>    |
 
         Examples:
-            | id    | tittle          | user             | statusCode | errMessage                    | errCode   |
-            | CA-09 | without a       | withoutTokenUser | 400        | Authorization header required | OAUTH_017 |
-            | CA-10 | with an invalid | invalidTokenUser | 401        | Token invalid                 | OAUTH_025 |
+            | id    | tittle          | user             | header       | statusCode | errMessage                    | errCode   |
+            | CA-09 | without a       | withoutTokenUser |              | 400        | Authorization header required | OAUTH_017 |
+            | CA-10 | with an invalid | invalidTokenUser | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
