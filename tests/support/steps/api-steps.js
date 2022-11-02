@@ -6,6 +6,7 @@ const fileReader = require('../../../core/utils/file_reader');
 const { replaceValue } = require('../../../core/utils/replacer');
 const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
+const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -17,7 +18,7 @@ Given("the user sets the following file body:", function(dataTable) {
     const tableValue = dataTable.rowsHash();
     logger.info(tableValue['fileName']);
     const fileName = tableValue['fileName'].toString();
-    this.requestBody = fileReader.readJson(`main/resources/${fileName}.json`);;
+    this.requestBody = fileReader.readJson(`main/resources/${fileName}.json`);
 });
 
 /**
@@ -32,7 +33,14 @@ Given("the user sets the following body:", function(dataTable) {
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
     endpoint = replaceValue(endpoint, this);
-    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, user);
+    const header = ConfigurationManager.environment.users[user];
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
+});
+
+When("An invalid user sends a {string} request to {string} endpoint with the following header:", async function(verb, endpoint, dataTable) {
+    endpoint = replaceValue(endpoint, this);
+    const header = dataTable.rowsHash();
+    this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
 });
 
 /**
@@ -48,7 +56,6 @@ Then("the response status code should be {int}", function (expectedCodeStatus) {
  */
 Then("the response body should have the following values:", function (table) {
     const tableValues = table.raw();
-    logger.debug(tableValues);
     for (let index = 0; index < tableValues.length; index++) {
         const value = tableValues[index];
         expect(this.response.data[value[0]].toString()).toBe(value[1]);

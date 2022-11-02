@@ -19,7 +19,7 @@ Feature: Lists
             | content           | New List Content      |
         And the schema response is verified with "listSchema"
 
-    @CP-02 @smoke @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteSpace @deleteFolder 
+    @CP-02 @smoke @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteSpace @deleteFolder
     Scenario: Verify a new List can be requested (CP-02)
         When the "owner" user sends a "GET" request to "/list/(list.id)" endpoint
         Then the response status code should be 200
