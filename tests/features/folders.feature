@@ -87,3 +87,17 @@ Feature: Folders
             | id    | tittle          | user             | header       | statusCode | errMessage                    | errCode   |
             | CA-09 | without a       | withoutTokenUser |              | 400        | Authorization header required | OAUTH_017 |
             | CA-10 | with an invalid | invalidTokenUser | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
+
+    @CA-11 @CA-12 @CA-13 @negative
+    Scenario: Verify a user cannot get all folders <tittle> space id (<id>)
+        When the "owner" user sends a "GET" request to "/space/<invalidData>/folder" endpoint
+        Then the response status code should be <statusCode>
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
+
+        Examples:
+            | id    | tittle              | invalidData | statusCode | errMessage                                 | errCode   |
+            | CA-11 | without a           |             | 500        | invalid input syntax for integer: "folder" | OAuth_025 |
+            | CA-12 | with an invalid     | abc         | 500        | invalid input syntax for integer: "abc"    | OAuth_025 |
+            | CA-13 | with a non-existent | 9999999999  | 401        | Team not authorized                        | OAUTH_027 |
