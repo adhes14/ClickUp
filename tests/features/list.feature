@@ -2,7 +2,7 @@
 Feature: Lists
 
     Defines scenarios for Lists feature
-    @CP-01 @smoke @getAssigneeId @getTeamId @createSpace @createFolder @deleteList @functional @deleteSpace @deleteFolder @wip
+    @CP-01 @smoke @getAssigneeId @getTeamId @createSpace @createFolder @deleteList @functional @deleteSpace @deleteFolder
     Scenario: Verify a new List can be created (CP-01)
         Given the user sets the following body:
             | name          | New List         |
