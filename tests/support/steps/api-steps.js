@@ -7,7 +7,6 @@ const Replacer = require('../../../core/utils/replacer');
 const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
-const { replaceNestedValue } = require('../../../core/utils/replacer');
 
 
 Given("the user sets the following complete body:", function(dataTable) {
@@ -30,17 +29,7 @@ Given("the user sets the following body:", function(dataTable) {
     const object = dataTable.rowsHash();
     for (const key in object) {
         object[key] = Replacer.replaceSpecialString(object[key]);
-    }
-    this.requestBody = object;
-});
-
-/**
- * Sets a body object whit params  for an API request
- */
-Given("the user sets the following body2:", function(dataTable) {
-    const object = dataTable.rowsHash();
-    for (const key in object) {
-        object[key] = replaceNestedValue(object[key], this);
+        object[key] = Replacer.replaceNestedValue(object[key], this);
     }
     this.requestBody = object;
 });
