@@ -3,7 +3,7 @@ const { expect } = require('expect');
 const logger = require('../../../core/utils/logger_manager');
 const { validateSchemaFromPath } = require('../../../core/utils/schema_validator.js');
 const fileReader = require('../../../core/utils/file_reader');
-const { replaceValue } = require('../../../core/utils/replacer');
+const Replacer = require('../../../core/utils/replacer');
 const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
@@ -32,13 +32,13 @@ Given("the user sets the following body:", function(dataTable) {
  * Sets type of user, verb type and the endpoint of the request
  */
 When("the {string} user sends a {string} request to {string} endpoint", async function(user, verb, endpoint) {
-    endpoint = replaceValue(endpoint, this);
+    endpoint = Replacer.replaceNestedValue(endpoint, this);
     const header = ConfigurationManager.environment.users[user];
     this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
 });
 
 When("An invalid user sends a {string} request to {string} endpoint with the following header:", async function(verb, endpoint, dataTable) {
-    endpoint = replaceValue(endpoint, this);
+    endpoint = Replacer.replaceNestedValue(endpoint, this);
     const header = dataTable.rowsHash();
     this.response =  await RequestManager.send(verb, endpoint, {}, this.requestBody, header);
 });
