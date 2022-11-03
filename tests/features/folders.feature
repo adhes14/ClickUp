@@ -147,8 +147,8 @@ Feature: Folders
 
     @CA-23 @negative @getTeamId @createSpace @deleteFolder @deleteSpace
     Scenario: Verify a user cannot create a folder with a space as a name (CA-23)
-        Given the user sets the following file body:
-            | fileName | createInvalidFolder |
+        Given the user sets the following body:
+            | name | (space) |
         When the "owner" user sends a "POST" request to "/space/(space.id)/folder" endpoint
         Then the response status code should be 400
         And the response body should have the following values:

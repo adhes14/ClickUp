@@ -25,6 +25,17 @@ class Replacer {
         }
         return valueReplaced;
     }
+
+    /**
+     * It replaces special string content
+     * @param {* string} value It looks for (<name>)
+     * @returns a special value
+     */
+    replaceSpecialString(value) {
+        value = value === "(space)" ? ' ' : value;
+        value = value === "(empty)" ? '' : value;
+        return value;
+    }
 }
 
 module.exports = new Replacer();

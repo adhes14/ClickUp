@@ -25,7 +25,11 @@ Given("the user sets the following file body:", function(dataTable) {
  * Sets a body object for an API request
  */
 Given("the user sets the following body:", function(dataTable) {
-    this.requestBody = dataTable.rowsHash();
+    const object = dataTable.rowsHash();
+    for (const key in object) {
+        object[key] = Replacer.replaceSpecialString(object[key]);
+    }
+    this.requestBody = object;
 });
 
 /**
