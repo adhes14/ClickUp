@@ -140,7 +140,7 @@
 		"type": "null"
 	  },
 	  "due_date": {
-		"type": "null"
+		"type": "string"
 	  },
 	  "start_date": {
 		"type": "null"
@@ -250,10 +250,6 @@
 		"required": [
 		  "id"
 		]
-	  },
-	  "attachments": {
-		"type": "array",
-		"items": {}
 	  }
 	},
 	"required": [
@@ -289,7 +285,6 @@
 	  "list",
 	  "project",
 	  "folder",
-	  "space",
-	  "attachments"
+	  "space"
 	]
   }
