@@ -15,7 +15,7 @@ Feature: Task
             | name | Another Task From Cucumber |
         And the schema response is verified with "taskSchema"
 
-    @CK-002 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace @createTask
+    @CK-002 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace @createTask @wip
     Scenario: A user can update a task (CK-002)
         Given the user sets the following body:
             | name            | Task 2                        |

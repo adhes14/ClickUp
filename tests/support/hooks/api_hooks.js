@@ -143,6 +143,6 @@ Before({ tags: "@createGoal" }, async function () {
         "description": "Some description here.....",
     };
     const header = ConfigurationManager.environment.users['owner'];
-    const response = await RequestManager.send('POST', `/list/217535144/task`, {}, newTaskBody, header);
+    const response = await RequestManager.send('POST', `/list/${this.list.id}/task`, {}, newTaskBody, header);
     this.task = response.data;
 })
