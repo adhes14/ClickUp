@@ -51,40 +51,51 @@ Feature: Space
           | multiple_assignees | false                       |
       And the schema response is verified with "spaceSchema"
 
-    @CJ-006 @negative
-    Scenario: A user cannot get spaces with invalid team id (CJ-006)
-      When the "owner" user sends a "GET" request to "/team/(teamid)/space" endpoint
-      Then the response status code should be 400
+    @CJ-006 @CJ-007 @CJ-008 @CJ-009 @negative @getTeamId @createSpace @deleteSpaceB
+    Scenario Outline:  A user cannot get a space <scenario> (<id>)
+      When the "owner" user sends a "GET" request to "/space/<invalidData>" endpoint
+      Then the response status code should be <code>
       Then the response body should have the following values:
-          | err   | Team ID invalid |
-          | ECODE | INPUT_001       |
+          | err   | <err>   |
+          | ECODE | <ECODE> |
+    
+      Examples:
+          | id       | scenario               | invalidData | code | err                                          | ECODE     |
+          | @CJ-006  | with empty space id    |             | 404  | Route not found                              | APP_001   |
+          | @CJ-007  | from another team      | 88642614    | 401  | Team not authorized                          | OAUTH_027 |
+          | @CJ-008  | with invalid id syntax | 5564fake    | 500  | invalid input syntax for integer: "5564fake" | OAuth_025 |
+          | @CJ-009  | deleted                | (space.id)  | 404  | Space not found                              | PROJ_006  |    
 
-    @CJ-007 @negative @getTeamId @createSpace @deleteSpace
-    Scenario: A user cannot get a space with empty space id (CJ-007)
-      When the "owner" user sends a "GET" request to "/space" endpoint
-      Then the response status code should be 404
+
+    @CJ-0010 @CJ-0011 @negative @getTeamId @createSpace @deleteSpace
+    Scenario Outline: A user cannot <scenario> (<id>)
+      When the "owner" user sends a "GET" request to "/team/<endpoint>/space" endpoint
+      Then the response status code should be <code>
       Then the response body should have the following values:
-          | err   | Route not found |
-          | ECODE | APP_001         |
+          | err   | <err>   |
+          | ECODE | <ECODE> |
 
-    @CJ-008 @negative
-    Scenario: A user cannot get a space from another user (CJ-008)
-      When the "owner" user sends a "GET" request to "/space/88642614" endpoint
-      Then the response status code should be 401
-      Then the response body should have the following values:
-          | err   | Team not authorized |
-          | ECODE | OAUTH_027           |
+      Examples:
+          | id       | scenario                               | endpoint    | code | err                                 | ECODE       |
+          | @CJ-010  | get spaces with invalid team id syntax | (teamid)    | 400  | Team ID invalid                     | INPUT_001   |
+          | @CJ-011  | get spaces with another user team id   | 31589777    | 401  | Team not authorized                 | OAUTH_023   |
 
-    @CJ-009 @negative
-    Scenario: A user cannot get a space with invalid space id syntax (CJ-009)
-      When the "owner" user sends a "GET" request to "/space/5564fake" endpoint
-      Then the response status code should be 500
-      Then the response body should have the following values:
-          | err   | invalid input syntax for integer: "5564fake" |
-          | ECODE | OAuth_025                                    |
+    @CJ-012 @CJ-013 @negative
+    Scenario Outline: Verify a user cannot get a space <title> token (<id>)
+        When An invalid user sends a "GET" request to "/space/(space.id)" endpoint with the following header:
+            | Authorization | <header> |
+        Then the response status code should be <statusCode>
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
 
-    @CJ-010 @smoke @negative @getTeamId @createSpace @deleteSpace
-    Scenario: A user cannot create a space with an exisiting space name (CJ-010) 
+        Examples:
+            | id     | title           | header       | statusCode | errMessage                    | errCode   |
+            | CJ-012 | without a       |              | 400        | Authorization header required | OAUTH_017 |
+            | CJ-013 | with an invalid | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
+
+    @CJ-014 @negative @getTeamId @createSpace @deleteSpace
+    Scenario: A user cannot create a space with an exisiting space name (CJ-014) 
       Given the user sets the following file body:
           | fileName | createSpace |
       When the "owner" user sends a "POST" request to "/team/(team.id)/space" endpoint
@@ -93,10 +104,34 @@ Feature: Space
           | err   | Space with this name already exists |
           | ECODE | PROJECT_023                         |
 
-    @CJ-011 @smoke @negative @getTeamId @createSpace @deleteSpaceB
-    Scenario: A user cannot get a deleted space (CJ-011)
-      When the "owner" user sends a "GET" request to "/space/(space.id)" endpoint
-      Then the response status code should be 404
-      Then the response body should have the following values:
-          | err   | Space not found |
-          | ECODE | PROJ_006        |
+    @CJ-015 @CJ-016 @negative @getTeamId @deleteSpace
+    Scenario Outline: Verify a user cannot get a space <title> token (<id>)     
+        Given the user sets the following file body:
+            | fileName | createSpace |
+        When An invalid user sends a "POST" request to "/team/(team.id)/space" endpoint with the following header:
+            | Authorization | <header> |
+        Then the response status code should be <statusCode>
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
+
+        Examples:
+            | id     | title           | header       | statusCode | errMessage                    | errCode   |
+            | CJ-015 | without a       |              | 400        | Authorization header required | OAUTH_017 |
+            | CJ-016 | with an invalid | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
+
+    @CJ-017 @CJ-018 @negative @getTeamId @createSpace @deleteSpace
+    Scenario Outline: Verify a user cannot get a space <title> token (<id>)     
+        Given the user sets the following file body:
+            | fileName | updateSpace |
+        When An invalid user sends a "PUT" request to "/space/(space.id)" endpoint with the following header:
+            | Authorization | <header> |
+        Then the response status code should be <statusCode>
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | <errCode>    |
+
+        Examples:
+            | id     | title           | header       | statusCode | errMessage                    | errCode   |
+            | CJ-017 | without a       |              | 400        | Authorization header required | OAUTH_017 |
+            | CJ-018 | with an invalid | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
