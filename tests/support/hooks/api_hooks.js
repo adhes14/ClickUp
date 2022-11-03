@@ -105,6 +105,6 @@ Before({ tags: "@createGoal" }, async function () {
         "description": "Some description here.....",
         "multiple_owners": false, "color": "#32a852"
     };
-    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, 'owner');
+    const response = await RequestManager.send('POST', `/team/31608823/goal`, {}, newGoalBody, 'owner');
     this.goal = response.data;
 });

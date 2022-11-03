@@ -9,7 +9,7 @@ Feature: Goals
             | description | Goal Description |
             | multiple_owners | false |
             | color | #32a852 |
-        When the "owner" user sends a "POST" request to "/team/31589353/goal" endpoint
+        When the "owner" user sends a "POST" request to "/team/31608823/goal" endpoint
         Then the response status code should be 200
         And the response body of the goal should have the following values:
             | name | Goal New Name |
@@ -31,8 +31,18 @@ Feature: Goals
             | multiple_owners | false |
         And the schema response is verified with "GoalSchema"
     
-    @CM-03 @functional @createGoal @wip
+    @CM-03 @functional @createGoal
     Scenario: Verify that a goal can be deleted (CM-03)
         When the "owner" user sends a "DELETE" request to "/goal/(goal.goal.id)" endpoint
         Then the response status code should be 200
         And the response body should be empty
+
+    @CM-04 @functional @createGoal @deleteGoal @wip
+    Scenario: Verify that a goal can be read (CM-04)
+        Given the "owner" user sends a "GET" request to "/goal/(goal.goal.id)" endpoint
+        Then the response status code should be 200
+        And the response body of the goal should have the following values:
+            | name | new goal from huk |
+            | description | Some description here..... |
+            | multiple_owners | false |
+            | color | #32a852 |
