@@ -7,6 +7,7 @@ const { replaceValue } = require('../../../core/utils/replacer');
 const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
+const Replacer = require('../../../core/utils/replacer');
 
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
@@ -25,7 +26,11 @@ Given("the user sets the following file body:", function(dataTable) {
  * Sets a body object for an API request
  */
 Given("the user sets the following body:", function(dataTable) {
-    this.requestBody = dataTable.rowsHash();
+    const object = dataTable.rowsHash();
+    for (const key in object) {
+        object[key] = replaceValue(object[key], this);
+    }
+    this.requestBody = object;
 });
 
 /**
