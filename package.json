@@ -7,6 +7,7 @@
     "test": "cucumber-js -p default",
     "testWip": "cucumber-js -p default --tags @wip",
     "testFolder": "cucumber-js -p default --tags @folder",
+    "testList": "cucumber-js -p default --tags @list",
     "report": "node html_reporter.js",
     "check": "eslint **/*.js",
     "fix": "eslint **/*.js --fix"
