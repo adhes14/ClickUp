@@ -5,13 +5,15 @@ const spaceApi = require('../../../main/api/space_api');
 const FileReader = require('../../../core/utils/file_reader');
 const { buildPath } = require('../../../core/utils/path_builder');
 const FolderApi = require('../../../main/api/folder_api');
+const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
 /**
  * It gets workspace team id, takes the first found
  */
 Before({ tags: "@getTeamId" }, async function () {
     logger.info('Getting a team id...');
-    const response = await RequestManager.send('GET', '/team', {}, {}, 'owner');
+    const header = ConfigurationManager.environment.users['owner'];
+    const response = await RequestManager.send('GET', '/team', {}, {}, header);
     this.team = response.data.teams[0];
 });
 
@@ -20,7 +22,8 @@ Before({ tags: "@getTeamId" }, async function () {
  */
 Before({ tags: "@getAssigneeId" }, async function () {
     logger.info('Getting a Assignee id...');
-    const response = await RequestManager.send('GET', '/user', {}, {}, 'owner');
+    const header = ConfigurationManager.environment.users['owner'];
+    const response = await RequestManager.send('GET', '/user', {}, {}, header);
     this.user = response.data.user;
 });
 
@@ -55,6 +58,14 @@ After ({tags: "@deleteSpace"}, async function () {
         await spaceApi.delete(this.space.id);
 });
 
+Before ({tags: "@deleteSpaceB"}, async function () {
+    logger.info("Delete Space hook...");
+    if (this.space === undefined)
+        await spaceApi.delete(this.response.data.id);
+    else
+        await spaceApi.delete(this.space.id);
+});
+
 /**
  * It deletes a folder which has been created before
  */
@@ -71,10 +82,11 @@ After({ tags: "@deleteFolder" }, async function () {
  */
 After({ tags: "@deleteGoal" }, async function () {
     logger.info('Deleting goal hook...');
+    const header = ConfigurationManager.environment.users['owner'];
     if (this.goal === undefined)
-        await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, 'owner');
+        await RequestManager.send('DELETE', `/goal/${this.response.data.goal.id}`, {}, {}, header);
     else
-        await RequestManager.send('DELETE', `/goal/${this.goal.goal.id}`, {}, {}, 'owner');
+        await RequestManager.send('DELETE', `/goal/${this.goal.goal.id}`, {}, {}, header);
 });
 
 /**
@@ -82,7 +94,8 @@ After({ tags: "@deleteGoal" }, async function () {
  */
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
-    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, 'owner');
+    const header = ConfigurationManager.environment.users['owner'];
+    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, header);
 });
 
 /**
@@ -90,7 +103,8 @@ After ({tags: "@deleteList"}, async function () {
  */
 Before({ tags: "@createList" }, async function () {
     logger.info('Creating a list hook...');
-    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, 'owner');
+    const header = ConfigurationManager.environment.users['owner'];
+    const response = await RequestManager.send('POST', `/folder/${this.folder.id}/list`, {}, {"name": "New List","content": "New List Content","due_date": "1567780450202","due_date_time": "false","priority": "1","assignee": `${this.user.id}`,"status": "red"}, header);
     this.list = response.data;
 });
 
@@ -105,6 +119,7 @@ Before({ tags: "@createGoal" }, async function () {
         "description": "Some description here.....",
         "multiple_owners": false, "color": "#32a852"
     };
-    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, 'owner');
+    const header = ConfigurationManager.environment.users['owner'];
+    const response = await RequestManager.send('POST', `/team/31589353/goal`, {}, newGoalBody, header);
     this.goal = response.data;
 });
