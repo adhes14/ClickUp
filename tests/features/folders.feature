@@ -173,3 +173,22 @@ Feature: Folders
         And the response body should have the following values:
             | err   | Space not found |
             | ECODE | PROJ_006        |
+
+    @CA-25 @negative @getTeamId @createSpace @createFolder @deleteSpace
+    Scenario: Verify a user cannot request a deleted folder (CA-25)
+        When the "owner" user sends a "DELETE" request to "/folder/(folder.id)" endpoint
+        And the "owner" user sends a "GET" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 200
+        And the response body should have the following values:
+            | deleted   | true |
+
+    @CA-26 @negative @getTeamId @createSpace @createFolder @deleteSpace
+    Scenario: Verify a user cannot update a deleted folder (CA-26)
+        When the "owner" user sends a "DELETE" request to "/folder/(folder.id)" endpoint
+        And the user sets the following body:
+            | name | Updated Folder Name |
+        And the "owner" user sends a "PUT" request to "/folder/(folder.id)" endpoint
+        Then the response status code should be 404
+        And the response body should have the following values:
+            | err   | Folder not found |
+            | ECODE | PROJ_006         |
