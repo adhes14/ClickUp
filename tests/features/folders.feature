@@ -75,7 +75,6 @@ Feature: Folders
 
     @CA-09 @CA-10 @negative
     Scenario Outline: Verify a user cannot get a folder <tittle> token (<id>)
-        When the "<user>" user sends a "GET" request to "/folder/(folder.id)" endpoint
         When An invalid user sends a "GET" request to "/folder/(folder.id)" endpoint with the following header:
             | Authorization | <header> |
         Then the response status code should be <statusCode>
