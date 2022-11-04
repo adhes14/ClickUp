@@ -39,6 +39,25 @@ Before({ tags: "@createSpace" }, async function () {
 });
 
 /**
+ * It creates two spaces with diferent body each one
+ */
+Before({ tags: "@createSpaces" }, async function () {
+    logger.info('Creating spaces hook...');
+    let name;
+    for (let i = 0; i <= 1; i++){
+        i === 0 ?  name = "createSpace" : name = "updateSpace"
+    const spacePath = buildPath(`main/resources/${name}.json`);
+    const spaceJson = FileReader.readJson(spacePath);
+    await spaceApi.create(this.team.id, "", spaceJson);
+    }
+    logger.info(this.team.id);
+    const response = await spaceApi.get(this.team.id);
+    this.space = response.data.spaces[0];
+    this.spaces = response.data.spaces;
+    logger.debug(this.space);
+});
+
+/**
  * It creates a folder due to use it later on a step or a hook
  */
 Before({ tags: "@createFolder" }, async function () {
@@ -56,6 +75,16 @@ After ({tags: "@deleteSpace"}, async function () {
         await spaceApi.delete(this.response.data.id);
     else
         await spaceApi.delete(this.space.id);
+});
+
+/**
+ * It deletes all the spaces created in a team
+ */
+After ({tags: "@deleteSpaces"}, async function () {
+    logger.info("Delete Spaces hook...");
+    for(let i = 0; i < this.spaces.length; i++){
+        await spaceApi.delete(this.spaces[i].id);
+    }
 });
 
 /**
