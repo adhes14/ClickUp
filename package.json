@@ -9,6 +9,7 @@
     "testApi": "cucumber-js -p default --tags @api --parallel 3",
     "testFolder": "cucumber-js -p default --tags @folder",
     "testList": "cucumber-js -p default --tags @list",
+    "testSpace": "cucumber-js -p default --tags @space",
     "report": "node html_reporter.js",
     "check": "eslint **/*.js",
     "fix": "eslint **/*.js --fix"

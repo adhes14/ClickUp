@@ -26,6 +26,15 @@ class SpaceApi {
         const header = ConfigurationManager.environment.users['owner'];
         await RequestManager.send('DELETE', `/space/${id}`, {}, {}, header);
     }
+    /**
+     * Get all spaces in a team
+     * @param {number} id, team id where spaces are storaged
+     */
+    async get(id){
+        const header = ConfigurationManager.environment.users['owner'];
+        const response = await RequestManager.send('GET', `/team/${id}/space`, {}, {}, header);
+        return response;
+    }
 }
 
 module.exports = new SpaceApi();
