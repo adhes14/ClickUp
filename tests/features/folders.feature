@@ -109,9 +109,9 @@ Feature: Folders
 
         Examples:
             | id    | action | feature | verb   | invalidData | statusCode |
-            | CA-14 | create | space   | POST   |             | 404 |
-            | CA-15 | update | folder  | PUT    |             | 500 |
-            | CA-16 | delete | folder  | DELETE |             | 500 |
+            | CA-14 | create | space   | POST   |             | 404        |
+            | CA-15 | update | folder  | PUT    |             | 500        |
+            | CA-16 | delete | folder  | DELETE |             | 500        |
 
     @CA-17 @CA-18 @negative
     Scenario: Verify a user cannot create a folder <tittle> space id (<id>)
@@ -162,3 +162,14 @@ Feature: Folders
         And the response body should have the following values:
             | err   | Project name invalid |
             | ECODE | CAT_021              |
+
+    @CA-24 @negative @getTeamId @createSpace @deleteFolder
+    Scenario: Verify a user cannot create a folder into a deleted space (CA-24)
+        When the "owner" user sends a "DELETE" request to "/space/(space.id)" endpoint
+        And the user sets the following body:
+            | name | New Folder |
+        And the "owner" user sends a "POST" request to "/space/(space.id)/folder" endpoint
+        Then the response status code should be 404
+        And the response body should have the following values:
+            | err   | Space not found |
+            | ECODE | PROJ_006        |
