@@ -127,7 +127,7 @@ Before({ tags: "@createGoal" }, async function () {
 /**
  * It deletes a task which has been created before
  */
- After ({tags: "@deleteTask"}, async function () {
+After ({tags: "@deleteTask"}, async function () {
     logger.info("Delete Task hook...");
     const header = ConfigurationManager.environment.users['owner'];
     await RequestManager.send('DELETE', `/TASK/${this.response.data.id}`, {}, {}, header);
@@ -135,7 +135,7 @@ Before({ tags: "@createGoal" }, async function () {
 /**
  * It creates a task to be used later on a step or a hook
  */
- Before({ tags: "@createTask" }, async function () {
+Before({ tags: "@createTask" }, async function () {
     logger.info('Creating a task...');
     const newTaskBody = {
         "name": "new task from hook",
