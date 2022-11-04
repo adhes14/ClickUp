@@ -89,7 +89,7 @@ Feature: Folders
             | CA-10 | with an invalid | invalidTokenUser | pk_123456789 | 401        | Token invalid                 | OAUTH_025 |
 
     @CA-11 @CA-12 @CA-13 @negative
-    Scenario: Verify a user cannot get all folders <tittle> space id (<id>)
+    Scenario Outline: Verify a user cannot get all folders <tittle> space id (<id>)
         When the "owner" user sends a "GET" request to "/space/<invalidData>/folder" endpoint
         Then the response status code should be <statusCode>
         And the response body should have the following values:
@@ -103,7 +103,7 @@ Feature: Folders
             | CA-13 | with a non-existent | 9999999999  | 401        | Team not authorized                        | OAUTH_027 |
 
     @CA-14 @CA-15 @CA-16 @negative
-    Scenario: Verify a user cannot <action> a folder without a <feature> id (<id>)
+    Scenario Outline: Verify a user cannot <action> a folder without a <feature> id (<id>)
         When the "owner" user sends a "<verb>" request to "/space/<invalidData>/folder" endpoint
         Then the response status code should be <statusCode>
 
@@ -114,7 +114,7 @@ Feature: Folders
             | CA-16 | delete | folder  | DELETE |             | 500        |
 
     @CA-17 @CA-18 @negative
-    Scenario: Verify a user cannot create a folder <tittle> space id (<id>)
+    Scenario Outline: Verify a user cannot create a folder <tittle> space id (<id>)
         When the "owner" user sends a "POST" request to "/space/<invalidData>/folder" endpoint
         Then the response status code should be <statusCode>
         And the response body should have the following values:
@@ -127,7 +127,7 @@ Feature: Folders
             | CA-18 | with a non-existent | 9999999999  | 401        | Team not authorized                     | OAUTH_027 |
 
     @CA-19 @CA-20 @negative
-    Scenario: Verify a user cannot update a folder <tittle> folder id (<id>)
+    Scenario Outline: Verify a user cannot update a folder <tittle> folder id (<id>)
         When the "owner" user sends a "PUT" request to "/folder/<invalidData>" endpoint
         Then the response status code should be <statusCode>
         And the response body should have the following values:
@@ -141,7 +141,7 @@ Feature: Folders
 
 
     @CA-21 @CA-22 @negative
-    Scenario: Verify a user cannot delete a folder <tittle> folder id (<id>)
+    Scenario Outline: Verify a user cannot delete a folder <tittle> folder id (<id>)
         When the "owner" user sends a "DELETE" request to "/folder/<invalidData>" endpoint
         Then the response status code should be <statusCode>
         And the response body should have the following values:
