@@ -11,7 +11,7 @@ Feature: Goals
             | color | #32a852 |
         When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
         Then the response status code should be 200
-        And the response body of the goal should have the following values:
+        And the response body should have the following values:
             | name | Goal New Name |
         And the schema response is verified with "GoalSchema"
 
@@ -24,7 +24,7 @@ Feature: Goals
             | multiple_owners | false |
         When the "owner" user sends a "PUT" request to "/goal/(goal.goal.id)" endpoint
         Then the response status code should be 200
-        And the response body of the goal should have the following values:
+        And the response body should have the following values:
             | name | Updated Goal Name |
             | due_date | 1568044355026 |
             | description | Updated Goal Description |
@@ -41,7 +41,7 @@ Feature: Goals
     Scenario: Verify that a goal can be read (CM-04)
         Given the "owner" user sends a "GET" request to "/goal/(goal.goal.id)" endpoint
         Then the response status code should be 200
-        And the response body of the goal should have the following values:
+        And the response body should have the following values:
             | name | new goal from huk |
             | description | Some description here..... |
             | multiple_owners | false |
