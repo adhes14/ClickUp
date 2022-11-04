@@ -120,6 +120,6 @@ Before({ tags: "@createGoal" }, async function () {
         "multiple_owners": false, "color": "#32a852"
     };
     const header = ConfigurationManager.environment.users['owner'];
-    const response = await RequestManager.send('POST', `/team/31608823/goal`, {}, newGoalBody, header);
+    const response = await RequestManager.send('POST', `/team/${this.team.id}/goal`, {}, newGoalBody, header);
     this.goal = response.data;
 });
