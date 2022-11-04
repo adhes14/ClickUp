@@ -6,6 +6,7 @@
   "scripts": {
     "test": "cucumber-js -p default",
     "testWip": "cucumber-js -p default --tags @wip",
+    "testApi": "cucumber-js -p default --tags @api --parallel 3",
     "testFolder": "cucumber-js -p default --tags @folder",
     "testList": "cucumber-js -p default --tags @list",
     "report": "node html_reporter.js",
