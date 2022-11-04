@@ -123,3 +123,26 @@ Before({ tags: "@createGoal" }, async function () {
     const response = await RequestManager.send('POST', `/team/${this.team.id}/goal`, {}, newGoalBody, header);
     this.goal = response.data;
 });
+
+/**
+ * It deletes a task which has been created before
+ */
+ After ({tags: "@deleteTask"}, async function () {
+    logger.info("Delete Task hook...");
+    const header = ConfigurationManager.environment.users['owner'];
+    await RequestManager.send('DELETE', `/TASK/${this.response.data.id}`, {}, {}, header);
+});
+/**
+ * It creates a task to be used later on a step or a hook
+ */
+ Before({ tags: "@createTask" }, async function () {
+    logger.info('Creating a task...');
+    const newTaskBody = {
+        "name": "new task from hook",
+        "due_date": "1568036964079",
+        "description": "Some description here.....",
+    };
+    const header = ConfigurationManager.environment.users['owner'];
+    const response = await RequestManager.send('POST', `/list/${this.list.id}/task`, {}, newTaskBody, header);
+    this.task = response.data;
+})

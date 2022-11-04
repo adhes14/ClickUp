@@ -2,7 +2,7 @@
 Feature: Lists
 
     Defines scenarios for Lists feature
-    @CP-01 @smoke @deleteList @functional
+    @CP-01 @smoke @getAssigneeId @getTeamId @createSpace @createFolder @deleteList @functional @deleteSpace @deleteFolder
     Scenario: Verify a new List can be created (CP-01)
         Given the user sets the following body:
             | name          | New List         |
@@ -10,9 +10,9 @@ Feature: Lists
             | due_date      | 1567780450202    |
             | due_date_time | false            |
             | priority      | 1                |
-            | assignee      | 49633402         |
+            | assignee      | (user.id)        |
             | status        | red              |
-        When the "owner" user sends a "POST" request to "/folder/121610261/list" endpoint
+        When the "owner" user sends a "POST" request to "/folder/(folder.id)/list" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
             | name              | New List              |

@@ -8,6 +8,7 @@ const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
+
 Given("the user sets the following complete body:", function(dataTable) {
     logger.info("Parsing body string to JSON...");
     this.requestBody = JSON.parse(dataTable);
@@ -28,6 +29,7 @@ Given("the user sets the following body:", function(dataTable) {
     const object = dataTable.rowsHash();
     for (const key in object) {
         object[key] = Replacer.replaceSpecialString(object[key]);
+        object[key] = Replacer.replaceNestedValue(object[key], this);
     }
     this.requestBody = object;
 });
