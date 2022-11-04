@@ -58,6 +58,9 @@ After ({tags: "@deleteSpace"}, async function () {
         await spaceApi.delete(this.space.id);
 });
 
+/**
+ * It deletes a space which has been created before the start of the test execution
+ */
 Before ({tags: "@deleteSpaceB"}, async function () {
     logger.info("Delete Space hook...");
     if (this.space === undefined)

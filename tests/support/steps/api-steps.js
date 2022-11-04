@@ -8,12 +8,9 @@ const RequestManager = require('../../../core/api/RequestManager');
 const { buildPath } = require('../../../core/utils/path_builder');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
-
-Given("the user sets the following complete body:", function(dataTable) {
-    logger.info("Parsing body string to JSON...");
-    this.requestBody = JSON.parse(dataTable);
-});
-
+/**
+ * Sets a body object for an API request from a file
+ */
 Given("the user sets the following file body:", function(dataTable) {
     logger.info("Parsing dataTable string to JSON...");
     const tableValue = dataTable.rowsHash();
