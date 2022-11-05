@@ -1,4 +1,4 @@
-@api @folder @delay
+@api @folder 
 Feature: Folders
 
     Defines scenarios for Folders feature
