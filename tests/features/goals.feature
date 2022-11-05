@@ -4,11 +4,11 @@ Feature: Goals
     @CM-01 @functional @getTeamId @deleteGoal
     Scenario: Verify that a new goal can be created (CM-01)
         Given the user sets the following body:
-            | name | Goal New Name |
-            | due_date | 1568036964079 |
-            | description | Goal Description |
-            | multiple_owners | false |
-            | color | #32a852 |
+            | name              | Goal New Name     |
+            | due_date          | 1568036964079     |
+            | description       | Goal Description  |
+            | multiple_owners   | false             |
+            | color             | #32a852           |
         When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
@@ -18,17 +18,17 @@ Feature: Goals
     @CM-02 @functional @getTeamId @createGoal @deleteGoal
     Scenario: Verify that a goal can be updated (CM-02)
         Given the user sets the following body:
-            | name | Updated Goal Name |
-            | due_date | 1568044355026 |
-            | description | Updated Goal Description |
-            | multiple_owners | false |
+            | name              | Updated Goal Name         |
+            | due_date          | 1568044355026             |
+            | description       | Updated Goal Description  |
+            | multiple_owners   | false                     |
         When the "owner" user sends a "PUT" request to "/goal/(goal.goal.id)" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
-            | name | Updated Goal Name |
-            | due_date | 1568044355026 |
-            | description | Updated Goal Description |
-            | multiple_owners | false |
+            | name              | Updated Goal Name         |
+            | due_date          | 1568044355026             |
+            | description       | Updated Goal Description  |
+            | multiple_owners   | false                     |
         And the schema response is verified with "GoalSchema"
     
     @CM-03 @functional @getTeamId @createGoal
@@ -42,10 +42,10 @@ Feature: Goals
         Given the "owner" user sends a "GET" request to "/goal/(goal.goal.id)" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
-            | name | new goal from huk |
-            | description | Some description here..... |
-            | multiple_owners | false |
-            | color | #32a852 |
+            | name              | new goal from huk             |
+            | description       | Some description here.....    |
+            | multiple_owners   | false                         |
+            | color             | #32a852                       |
 
     @CM-05 @negative
     Scenario: Verify that the user gets a 500 code when he puts on the url an incorrect goal id (CM-05)
@@ -62,46 +62,46 @@ Feature: Goals
     @CM-06 @negative @getTeamId
     Scenario: Verify that the user gets a 500 code when he doesn't set a goal name in their request (CM-06)
         Given the user sets the following body:
-            | due_date | 1568036964079 |
-            | description | Goal Description |
-            | multiple_owners | false |
-            | color | #32a852 |
+            | due_date          | 1568036964079     |
+            | description       | Goal Description  |
+            | multiple_owners   | false             |
+            | color             | #32a852           |
         When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
         Then the response status code should be 500
         And the response body should have the following values:
-            | err   | null value in column "name" violates not-null constraint |
-            | ECODE | GOAL_005    |
+            | err   | null value in column "name" violates not-null constraint  |
+            | ECODE | GOAL_005                                                  |
     
     @CM-07 @negative
     Scenario: Verify that the user gets a 401 code when he doesn't enter his own team id (CM-07)
         Given the user sets the following body:
-            | name | Goal name |
-            | due_date | 1568036964079 |
-            | description | Goal Description |
-            | multiple_owners | false |
-            | color | #32a852 |
+            | name              | Goal name         |
+            | due_date          | 1568036964079     |
+            | description       | Goal Description  |
+            | multiple_owners   | false             |
+            | color             | #32a852           |
         When the "owner" user sends a "POST" request to "/team/<wrongTeamID>/goal" endpoint
         Then the response status code should be 401
         And the response body should have the following values:
-            | err   | Team not authorized |
-            | ECODE | OAUTH_061    |
+            | err   | Team not authorized   |
+            | ECODE | OAUTH_061             |
         Examples:
-            | wrongTeamID    |
-            |      31610868  |
+            |    wrongTeamID    |
+            |    31610868       |
 
     @CM-08 @negative @getTeamId
     Scenario: Verify that the user gets a 500 code, when they set a name without any character (CM-08)
         Given the user sets the following body:
-            | name | <goalName> |
-            | due_date | 1568036964079 |
-            | description | Goal Description |
-            | multiple_owners | false |
-            | color | #32a852 |
+            | name              | <goalName>        |
+            | due_date          | 1568036964079     |
+            | description       | Goal Description  |
+            | multiple_owners   | false             |
+            | color             | #32a852           |
         When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
         Then the response status code should be 500
         And the response body should have the following values:
             | err   | null value in column "name" violates not-null constraint |
-            | ECODE | GOAL_005    |
+            | ECODE | GOAL_005                                                 |
         Examples:
-            |Title|                     goalName |
-            | with blank spaces ||
+            |       Title       | goalName |
+            | with blank spaces |          |
