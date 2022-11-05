@@ -1,0 +1,32 @@
+format_version: 10
+pipelines:
+  MyFirstPipeline:
+    group: ClickUp-Tests
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-26a4e5e:
+        git: https://dev.azure.com/clickupAT17/ClickUp/_git/ClickUp
+        username: Marco Veizaga
+        shallow_clone: false
+        auto_update: true
+        branch: main_marco
+        encrypted_password: AES:NCOlRoVuyhBDJqR98ID9gQ==:HX/bPLIDVab+bACwdBSeigQOACMoiVTR9T54/Aob4TiVZEgqcq8tqHyiuemiXg/QNvh0zajsJNArUSziATSPaQ==
+    stages:
+    - RunAutomatedTests:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          RunTests:
+            resources:
+            - ubuntu
+            timeout: 0
+            tasks:
+            - script: |
+                npm install
+                npm run test
