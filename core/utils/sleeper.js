@@ -6,6 +6,6 @@
 module.exports.sleep = function (ms) {
     return new Promise(resolve => {
         console.log('waiting...');
-        setTimeout(resolve, ms);
+        return setTimeout(resolve, ms);
     });
 }
