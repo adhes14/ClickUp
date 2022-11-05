@@ -72,7 +72,7 @@ Feature: Goals
             | err   | null value in column "name" violates not-null constraint |
             | ECODE | GOAL_005    |
     
-    @CM-07 @negative @wip
+    @CM-07 @negative
     Scenario: Verify that the user gets a 401 code when he doesn't enter his own team id (CM-07)
         Given the user sets the following body:
             | name | Goal name |
@@ -88,3 +88,20 @@ Feature: Goals
         Examples:
             | wrongTeamID    |
             |      31610868  |
+
+    @CM-08 @negative @getTeamId
+    Scenario: Verify that the user gets a 500 code, when they set a name without any character (CM-08)
+        Given the user sets the following body:
+            | name | <goalName> |
+            | due_date | 1568036964079 |
+            | description | Goal Description |
+            | multiple_owners | false |
+            | color | #32a852 |
+        When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
+        Then the response status code should be 500
+        And the response body should have the following values:
+            | err   | null value in column "name" violates not-null constraint |
+            | ECODE | GOAL_005    |
+        Examples:
+            |Title|                     goalName |
+            | with blank spaces ||
