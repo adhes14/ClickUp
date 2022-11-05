@@ -30,3 +30,10 @@ pipelines:
             - script: |
                 npm install
                 npm run test
+                npm run report
+            artifacts:
+            - build:
+                source: reports/cucumber_report.html
+                destination: reports/
+            tabs:
+              Results: reports/cucumber_report.html
