@@ -46,3 +46,15 @@ Feature: Goals
             | description | Some description here..... |
             | multiple_owners | false |
             | color | #32a852 |
+
+    @CM-05 @negative
+    Scenario: Verify that the user gets a 500 code when he puts on the url an incorrect goal id (CM-05)
+        Given the "owner" user sends a "GET" request to "/goal/<incorrectGoalID>" endpoint
+        Then the response status code should be 500
+        And the response body should have the following values:
+            | err   | <errMessage> |
+            | ECODE | OAUTH_101    |
+        
+        Examples:
+            |          incorrectGoalID             |                             errMessage                                       |
+            | dd2a9e33-d17a-4c0e-qwuey-86e4320b740 | invalid input syntax for type uuid: "dd2a9e33-d17a-4c0e-qwuey-86e4320b740"   |
