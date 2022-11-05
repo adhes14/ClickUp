@@ -58,3 +58,18 @@ Feature: Goals
         Examples:
             |          incorrectGoalID             |                             errMessage                                       |
             | dd2a9e33-d17a-4c0e-qwuey-86e4320b740 | invalid input syntax for type uuid: "dd2a9e33-d17a-4c0e-qwuey-86e4320b740"   |
+
+    @CM-06 @negative @getTeamId @wip
+    Scenario: Verify that the user gets a 500 code when he doesn't set a goal name in their request (CM-06)
+        Given the user sets the following body:
+            | due_date | 1568036964079 |
+            | description | Goal Description |
+            | multiple_owners | false |
+            | color | #32a852 |
+        When the "owner" user sends a "POST" request to "/team/(team.id)/goal" endpoint
+        Then the response status code should be 500
+        And the response body should have the following values:
+            | err   | null value in column "name" violates not-null constraint |
+            | ECODE | GOAL_005    |
+    
+    
