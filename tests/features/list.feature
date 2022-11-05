@@ -1,4 +1,4 @@
-@api @list
+@api @list @delay
 Feature: Lists
 
     Defines scenarios for Lists feature

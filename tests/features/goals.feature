@@ -1,4 +1,4 @@
-@api @goal
+@api @goal @delay
 Feature: Goals
 
     @CM-01 @functional @getTeamId @deleteGoal

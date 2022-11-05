@@ -178,3 +178,9 @@ Before({ tags: "@createTask" }, async function () {
     const response = await RequestManager.send('POST', `/list/${this.list.id}/task`, {}, newTaskBody, header);
     this.task = response.data;
 })
+
+After ({ tags: "@delay" }, async function() {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+    logger.info('End of this scenario');
+    await sleep(1000);
+})
