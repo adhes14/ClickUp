@@ -29,7 +29,7 @@ Feature: Task
             | description     | Update Description of task 2  |
         And the schema response is verified with "taskSchema"
 
-    @CK-003 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace @createTask 
+    @CK-003 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @createTask  @deleteList @deleteFolder @deleteSpace
     Scenario: A user can get a task into a list (CK-003)
         When the "owner" user sends a "GET" request to "/task/(task.id)" endpoint
         Then the response status code should be 200
@@ -39,7 +39,7 @@ Feature: Task
             | due_date        | 1568016000000                 |
         And the schema response is verified with "taskSchema"
 
-    @CK-004 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace @createTask 
+    @CK-004 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @createTask @deleteList @deleteFolder @deleteSpace 
     Scenario: A user can get all tasks into a list (CK-004)
         When the "owner" user sends a "GET" request to "/list/(list.id)/task" endpoint
         Then the response status code should be 200
