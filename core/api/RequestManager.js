@@ -16,7 +16,7 @@ class RequestManager {
         logger.debug(`Sending a ${verb} request to ${options.url}`);
         const response = await axios.request(options);
         logger.debug(`Response returned with ${response.status} code`);
-        sleep(2000);
+        await sleep(1000);
         return response;
     }
 }
