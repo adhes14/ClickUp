@@ -1,6 +1,6 @@
 format_version: 10
 pipelines:
-  MyFirstPipeline:
+  ClickUp:
     group: ClickUp-Tests
     label_template: ${COUNT}
     lock_behavior: none
