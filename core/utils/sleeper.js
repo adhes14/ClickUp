@@ -4,8 +4,5 @@
  * @returns
  */
 module.exports.sleep = function (ms) {
-    return new Promise(resolve => {
-        console.log('waiting...');
-        return setTimeout(resolve, ms);
-    });
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
