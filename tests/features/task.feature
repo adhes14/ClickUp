@@ -36,7 +36,7 @@ Feature: Task
         And the response body should have the following values:
             | name            | new task from hook            |
             | description     | Some description here.....    |
-            | due_date        | 1568012400000                 |
+            | due_date        | 1568016000000                 |
         And the schema response is verified with "taskSchema"
 
     @CK-004 @deleteTask @smoke @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace @createTask 
@@ -48,7 +48,7 @@ Feature: Task
         And the response body should have the following values:
             | name            | new task from hook            |
             | description     | Some description here.....    |
-            | due_date        | 1568012400000                 |
+            | due_date        | 1568016000000                 |
 
     @CK-005 @CK-006 @negative  
     Scenario Outline: Verify a user cannot get a task <tittle> id (<id>)

@@ -182,5 +182,5 @@ Before({ tags: "@createTask" }, async function () {
 After ({ tags: "@delay" }, async function() {
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
     logger.info('End of this scenario');
-    await sleep(1000);
+    await sleep(2000);
 })
