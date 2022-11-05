@@ -1,4 +1,4 @@
-@api @folder @wip @delay
+@api @folder @delay
 Feature: Folders
 
     Defines scenarios for Folders feature
@@ -103,14 +103,14 @@ Feature: Folders
 
     @CA-14 @CA-15 @CA-16 @negative
     Scenario Outline: Verify a user cannot <action> a folder without a <feature> id (<id>)
-        When the "owner" user sends a "<verb>" request to "/space/<invalidData>/folder" endpoint
-        Then the response status code should be <statusCode>
+        When the "owner" user sends a "<verb>" request to "<endpoint>" endpoint
+        Then the response status code should be 404
 
         Examples:
-            | id    | action | feature | verb   | invalidData | statusCode |
-            | CA-14 | create | space   | POST   |             | 404        |
-            | CA-15 | update | folder  | PUT    |             | 500        |
-            | CA-16 | delete | folder  | DELETE |             | 500        |
+            | id    | action | feature | verb   | endpoint       |
+            | CA-14 | create | space   | POST   | /space//folder |
+            | CA-15 | update | folder  | PUT    | /folder/       |
+            | CA-16 | delete | folder  | DELETE | /folder/       |
 
     @CA-17 @CA-18 @negative
     Scenario Outline: Verify a user cannot create a folder <tittle> space id (<id>)
@@ -137,7 +137,6 @@ Feature: Folders
             | id    | tittle              | invalidData | statusCode | errMessage                              | errCode   |
             | CA-19 | with an invalid     | abc         | 500        | invalid input syntax for integer: "abc" | OAuth_025 |
             | CA-20 | with a non-existent | 9999999999  | 401        | Team not authorized                     | OAUTH_027 |
-
 
     @CA-21 @CA-22 @negative
     Scenario Outline: Verify a user cannot delete a folder <tittle> folder id (<id>)
@@ -179,7 +178,7 @@ Feature: Folders
         And the "owner" user sends a "GET" request to "/folder/(folder.id)" endpoint
         Then the response status code should be 200
         And the response body should have the following values:
-            | deleted   | true |
+            | deleted | true |
 
     @CA-26 @negative @getTeamId @createSpace @createFolder @deleteSpace
     Scenario: Verify a user cannot update a deleted folder (CA-26)

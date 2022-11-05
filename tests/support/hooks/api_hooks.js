@@ -6,7 +6,7 @@ const FileReader = require('../../../core/utils/file_reader');
 const { buildPath } = require('../../../core/utils/path_builder');
 const FolderApi = require('../../../main/api/folder_api');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const { sleep } = require('../../../core/utils/sleeper');
 
 /**
  * It gets workspace team id, takes the first found
@@ -65,7 +65,7 @@ Before({ tags: "@createSpaces" }, async function () {
         i === 0 ?  name = "createSpace" : name = "updateSpace"
         const spacePath = buildPath(`main/resources/${name}.json`);
         const spaceJson = FileReader.readJson(spacePath);
-        sleep(1000);
+        sleep(2000);
         await spaceApi.create(this.team.id, "", spaceJson);
     }
     logger.info(this.team.id);
@@ -167,7 +167,7 @@ After ({tags: "@deleteSpace"}, async function () {
 After ({tags: "@deleteSpaces"}, async function () {
     logger.info("Delete Spaces hook...");
     for(let i = 0; i < this.spaces.length; i++){
-        sleep(1000);
+        sleep(2000);
         await spaceApi.delete(this.spaces[i].id);
     }
 });
