@@ -1,4 +1,4 @@
-@api @space
+@api @space @delay
 Feature: Space
 
     Defines scenarios for boards feature
