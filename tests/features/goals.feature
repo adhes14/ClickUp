@@ -59,7 +59,7 @@ Feature: Goals
             |          incorrectGoalID             |                             errMessage                                       |
             | dd2a9e33-d17a-4c0e-qwuey-86e4320b740 | invalid input syntax for type uuid: "dd2a9e33-d17a-4c0e-qwuey-86e4320b740"   |
 
-    @CM-06 @negative @getTeamId @wip
+    @CM-06 @negative @getTeamId
     Scenario: Verify that the user gets a 500 code when he doesn't set a goal name in their request (CM-06)
         Given the user sets the following body:
             | due_date | 1568036964079 |
@@ -72,4 +72,19 @@ Feature: Goals
             | err   | null value in column "name" violates not-null constraint |
             | ECODE | GOAL_005    |
     
-    
+    @CM-07 @negative @wip
+    Scenario: Verify that the user gets a 401 code when he doesn't enter his own team id (CM-07)
+        Given the user sets the following body:
+            | name | Goal name |
+            | due_date | 1568036964079 |
+            | description | Goal Description |
+            | multiple_owners | false |
+            | color | #32a852 |
+        When the "owner" user sends a "POST" request to "/team/<wrongTeamID>/goal" endpoint
+        Then the response status code should be 401
+        And the response body should have the following values:
+            | err   | Team not authorized |
+            | ECODE | OAUTH_061    |
+        Examples:
+            | wrongTeamID    |
+            |      31610868  |
