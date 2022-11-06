@@ -1,4 +1,4 @@
-@api @task @delay
+@api @task 
 Feature: Task
 
     Defines scenarios for task feature
