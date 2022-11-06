@@ -49,15 +49,11 @@ Feature: Goals
 
     @CM-05 @negative
     Scenario: Verify that the user gets a 500 code when he puts on the url an incorrect goal id (CM-05)
-        Given the "owner" user sends a "GET" request to "/goal/<incorrectGoalID>" endpoint
+        Given the "owner" user sends a "GET" request to "/goal/dd2a9e33-d17a-4c0e-qwuey-86e4320b740" endpoint
         Then the response status code should be 500
         And the response body should have the following values:
-            | err   | <errMessage> |
-            | ECODE | OAUTH_101    |
-        
-        Examples:
-            |          incorrectGoalID             |                             errMessage                                       |
-            | dd2a9e33-d17a-4c0e-qwuey-86e4320b740 | invalid input syntax for type uuid: "dd2a9e33-d17a-4c0e-qwuey-86e4320b740"   |
+            | err   | invalid input syntax for type uuid: "dd2a9e33-d17a-4c0e-qwuey-86e4320b740" |
+            | ECODE |                           OAUTH_101                                        |
 
     @CM-06 @negative @getTeamId
     Scenario: Verify that the user gets a 500 code when he doesn't set a goal name in their request (CM-06)
@@ -80,19 +76,16 @@ Feature: Goals
             | description       | Goal Description  |
             | multiple_owners   | false             |
             | color             | #32a852           |
-        When the "owner" user sends a "POST" request to "/team/<wrongTeamID>/goal" endpoint
+        When the "owner" user sends a "POST" request to "/team/31610868/goal" endpoint
         Then the response status code should be 401
         And the response body should have the following values:
             | err   | Team not authorized   |
             | ECODE | OAUTH_061             |
-        Examples:
-            |    wrongTeamID    |
-            |    31610868       |
 
     @CM-08 @negative @getTeamId
     Scenario: Verify that the user gets a 500 code, when they set a name without any character (CM-08)
         Given the user sets the following body:
-            | name              | <goalName>        |
+            | name              |                   |
             | due_date          | 1568036964079     |
             | description       | Goal Description  |
             | multiple_owners   | false             |
@@ -102,6 +95,3 @@ Feature: Goals
         And the response body should have the following values:
             | err   | null value in column "name" violates not-null constraint |
             | ECODE | GOAL_005                                                 |
-        Examples:
-            |       Title       | goalName |
-            | with blank spaces |          |
