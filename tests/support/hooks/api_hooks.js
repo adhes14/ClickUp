@@ -50,7 +50,7 @@ Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a space hook...');
     const spacePath = buildPath("main/resources/createSpace.json");
     const spaceJson = FileReader.readJson(spacePath);
-    const response = await spaceApi.create(this.team.id, "", spaceJson);
+    const response = await spaceApi.create(this.team.id, spaceJson);
     this.space = response.data;
 });
 
@@ -64,7 +64,7 @@ Before({ tags: "@createSpaces" }, async function () {
         i === 0 ?  name = "createSpace" : name = "updateSpace"
         const spacePath = buildPath(`main/resources/${name}.json`);
         const spaceJson = FileReader.readJson(spacePath);
-        await spaceApi.create(this.team.id, "", spaceJson);
+        await spaceApi.create(this.team.id, spaceJson);
     }
     logger.info(this.team.id);
     const response = await spaceApi.get(this.team.id);
