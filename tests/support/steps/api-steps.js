@@ -50,7 +50,6 @@ When("An invalid user sends a {string} request to {string} endpoint with the fol
  * Verify if the response code status is the same as expected
  */
 Then("the response status code should be {int}", function (expectedCodeStatus) {
-    logger.debug(this.response.data);
     expect(this.response.status).toBe(expectedCodeStatus);
 });
 
