@@ -1,4 +1,4 @@
-@api @list 
+@api @list
 Feature: Lists
 
     Defines scenarios for Lists feature
@@ -38,7 +38,7 @@ Feature: Lists
             | name | New List Updated |
         And the schema response is verified with "listSchema"
 
-    @CP-04 @smoke @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteSpace @deleteFolder
+    @CP-04 @smoke @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteSpace @deleteFolder
     Scenario: verify that a list can be deleted (CP-04)
         When the "owner" user sends a "DELETE" request to "/list/(list.id)" endpoint
         Then the response status code should be 200
@@ -78,7 +78,7 @@ Feature: Lists
             | err            | Not Found           |
             | ECODE          | OAUTH_121           |
 
-    @CP-08 @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteList @deleteFolder @deleteSpace
+    @CP-08 @functional @getAssigneeId @getTeamId @createSpace @createFolder @createList @deleteFolder @deleteSpace
     Scenario: verify when a user deletes a list this one is still available to be recovered (CP-08)
         When the "owner" user sends a "DELETE" request to "/list/(list.id)" endpoint
         Then the response status code should be 200

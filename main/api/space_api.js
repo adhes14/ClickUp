@@ -11,10 +11,9 @@ class SpaceApi {
      * @param {json} body, object representation of the fields required to create a space
      * @returns a new space
      */
-    async create(teamId, endpoint, body){
-        endpoint ? endpoint  : endpoint = `/team/${teamId}/space`;
+    async create(teamId, body){
         const header = ConfigurationManager.environment.users['owner'];
-        const response = await RequestManager.send('POST', endpoint, {}, body, header);
+        const response = await RequestManager.send('POST', `/team/${teamId}/space`, {}, body, header);
         return response;
     }
 

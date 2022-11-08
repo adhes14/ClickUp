@@ -76,13 +76,13 @@ Feature: Goals
             | description       | Goal Description  |
             | multiple_owners   | false             |
             | color             | #32a852           |
-        When the "owner" user sends a "POST" request to "/team/31610868/goal" endpoint
+        When the "owner" user sends a "POST" request to "/team/99999999/goal" endpoint
         Then the response status code should be 401
         And the response body should have the following values:
             | err   | Team not authorized   |
             | ECODE | OAUTH_061             |
 
-    @CM-08 @negative @getTeamId
+    @CM-08 @negative @getTeamId @deleteGoal
     Scenario: Verify that the user gets a 500 code, when they set a name without any character (CM-08)
         Given the user sets the following body:
             | name              |                   |

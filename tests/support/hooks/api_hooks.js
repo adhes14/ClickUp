@@ -8,6 +8,12 @@ const FolderApi = require('../../../main/api/folder_api');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
 /**
+ * It displays which scenario is running
+ */
+Before(function(scenario) {
+    logger.info(`Running ${scenario.pickle.uri}, Scenario: ${scenario.pickle.name}`);
+});
+/**
  * It gets workspace team id, takes the first found
  */
 Before({ tags: "@getTeamId" }, async function () {
@@ -50,7 +56,7 @@ Before({ tags: "@createSpace" }, async function () {
     logger.info('Creating a space hook...');
     const spacePath = buildPath("main/resources/createSpace.json");
     const spaceJson = FileReader.readJson(spacePath);
-    const response = await spaceApi.create(this.team.id, "", spaceJson);
+    const response = await spaceApi.create(this.team.id, spaceJson);
     this.space = response.data;
 });
 
@@ -64,7 +70,7 @@ Before({ tags: "@createSpaces" }, async function () {
         i === 0 ?  name = "createSpace" : name = "updateSpace"
         const spacePath = buildPath(`main/resources/${name}.json`);
         const spaceJson = FileReader.readJson(spacePath);
-        await spaceApi.create(this.team.id, "", spaceJson);
+        await spaceApi.create(this.team.id, spaceJson);
     }
     logger.info(this.team.id);
     const response = await spaceApi.get(this.team.id);
@@ -125,7 +131,10 @@ Before ({tags: "@deleteSpaceB"}, async function () {
 After ({tags: "@deleteTask"}, async function () {
     logger.info("Delete Task hook...");
     const header = ConfigurationManager.environment.users['owner'];
-    await RequestManager.send('DELETE', `/TASK/${this.response.data.id}`, {}, {}, header);
+    if (this.task === undefined)
+        await RequestManager.send('DELETE', `/task/${this.response.data.id}`, {}, {}, header);
+    else
+        await RequestManager.send('DELETE', `/task/${this.task.id}`, {}, {}, header);
 });
 
 /**
@@ -134,7 +143,10 @@ After ({tags: "@deleteTask"}, async function () {
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
     const header = ConfigurationManager.environment.users['owner'];
-    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, header);
+    if (this.list === undefined)
+        await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, header);
+    else
+        await RequestManager.send('DELETE', `/list/${this.list.id}`, {}, {}, header);
 });
 
 /**
