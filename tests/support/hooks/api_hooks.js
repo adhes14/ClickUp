@@ -7,6 +7,9 @@ const { buildPath } = require('../../../core/utils/path_builder');
 const FolderApi = require('../../../main/api/folder_api');
 const ConfigurationManager = require('../../../core/utils/configuration_manager');
 
+/**
+ * It displays which scenario is running
+ */
 Before(function(scenario) {
     logger.info(`Running ${scenario.pickle.uri}, Scenario: ${scenario.pickle.name}`);
 });
