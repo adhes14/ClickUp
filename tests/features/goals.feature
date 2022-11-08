@@ -82,7 +82,7 @@ Feature: Goals
             | err   | Team not authorized   |
             | ECODE | OAUTH_061             |
 
-    @CM-08 @negative @getTeamId
+    @CM-08 @negative @getTeamId @deleteGoal
     Scenario: Verify that the user gets a 500 code, when they set a name without any character (CM-08)
         Given the user sets the following body:
             | name              |                   |
