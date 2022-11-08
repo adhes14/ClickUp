@@ -125,7 +125,10 @@ Before ({tags: "@deleteSpaceB"}, async function () {
 After ({tags: "@deleteTask"}, async function () {
     logger.info("Delete Task hook...");
     const header = ConfigurationManager.environment.users['owner'];
-    await RequestManager.send('DELETE', `/TASK/${this.response.data.id}`, {}, {}, header);
+    if (this.task === undefined)
+        await RequestManager.send('DELETE', `/task/${this.response.data.id}`, {}, {}, header);
+    else
+        await RequestManager.send('DELETE', `/task/${this.task.id}`, {}, {}, header);
 });
 
 /**
@@ -134,7 +137,10 @@ After ({tags: "@deleteTask"}, async function () {
 After ({tags: "@deleteList"}, async function () {
     logger.info("Delete List hook...");
     const header = ConfigurationManager.environment.users['owner'];
-    await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, header);
+    if (this.list === undefined)
+        await RequestManager.send('DELETE', `/list/${this.response.data.id}`, {}, {}, header);
+    else
+        await RequestManager.send('DELETE', `/list/${this.list.id}`, {}, {}, header);
 });
 
 /**
